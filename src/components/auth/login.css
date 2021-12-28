@@ -1,0 +1,29 @@
+#container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5vh;
+}
+.addTodoSubmit{
+    width: 150px;
+}
+.hr{
+    height: 1px;
+    width: 100% !important;
+}
+#hr{
+    height: 1px;
+    width: 100%;
+    background-color: darkgray;
+    margin-bottom: 30px;
+}
+#logo_black{
+    max-height: 200px;
+}
+.col_logo{
+    margin: auto;
+}
+.button_zaloguj{
+    width: 100%;
+}
