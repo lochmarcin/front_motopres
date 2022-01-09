@@ -1,0 +1,11 @@
+#p_labels_checkbox{
+    margin-left: 5px;
+}
+.hr{
+    height: 1px;
+    width: 100% !important;
+}
+#div_createdAt{
+    margin: 0;
+    color: darkgray;
+}

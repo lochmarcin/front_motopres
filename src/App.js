@@ -1,35 +1,31 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import axios from 'axios';
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Button from 'react-bootstrap/Button'
+
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
 
 import Todo from './components/todo/todoMain';
 import Login from './components/auth/login'
 
-function App() {
-  return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <Button>DUPAAAAAA</Button>
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
 
-    <Login></Login>
-    // <Todo></Todo>
+function App() {
+
+//   const [isLogin, setisLogin] = React.useState(null);
+
+//   React.useEffect(() => {
+//     axios.get('http://127.0.0.1:5000/todo/get').then((response) => {
+//         setTodos(response.data);
+
+//     });
+// }, []);
+
+  return (
+    
+
+
+    <Todo></Todo>
   );
 }
 

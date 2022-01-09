@@ -10,24 +10,33 @@ const Todo = () => {
     const [todos, setTodos] = React.useState(null);
 
 
-    const todoDelete = (id) => {
+    const todoDelete = async (id) => {
         const newTodo = todos.filter(todo => todo.id !== id)
         setTodos(newTodo)
         axios.put('http://127.0.0.1:5000/todo/updateDone/'+id).then((response) => {
-        
+            console.log('Usunięto todo o id: ' + id)
         });
 
     }
+    const todoAdd = (data) => {
+        console.log(data)
+        // todos.push()
+        // setTodos(newTodo)
+            todos.push(data)
 
+            console.log("powinno dodaś do listy...")
+        };
 
-    // function todoDelete(id){
-    //     console.log("delete kurwa")
-    // }
+    
 
     React.useEffect(() => {
         axios.get('http://127.0.0.1:5000/todo/get').then((response) => {
             setTodos(response.data);
+            console.log(response.data)
+        });
 
+        axios.get('http://127.0.0.1:5000/auth/me').then((response) => {
+            console.log(response.data)
         });
     }, []);
 
@@ -35,7 +44,7 @@ const Todo = () => {
         <>
             <div id="container">
                 <div id="AddTodo">
-                    <AddTodo></AddTodo>
+                    <AddTodo todoAdd={todoAdd}></AddTodo>
                 </div>
                 <br />
                 <br />

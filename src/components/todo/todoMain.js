@@ -4,46 +4,74 @@ import Todos from "./oneTodo"
 import AddTodo from "./addTodo";
 import Donetodo from "./doneTodo";
 import "./todoMain.css"
-import UserEdit from "./usersEdit"
+import UserEdit from "../user/usersEdit"
 import TodoAll from "./todo"
+import Login from "../auth/login";
+import Logout from "../auth/logout";
+import MainUser from "../user/userMain";
 import axios from 'axios'
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom"
 
 
 
-function updateList() {
-    axios.get('http://motopres.tebuty.pl/todo/get')
-        .then(res => {
-            const todos = res.data;
-            // this.setState({ todos });
-            console.log("wyniki: " + todos[0])
-        })
-}
+// function updateList() {
+//     axios.get('http://motopres.tebuty.pl/todo/get')
+//         .then(res => {
+//             const todos = res.data;
+//             // this.setState({ todos });
+//             console.log("wyniki: " + todos[0])
+//         })
+// }
+
+
 
 class Todo extends React.Component {
-    state = {
-        todos: []
-    }
+    // state = {
+    //     todos: []
+    // }
+    
+    // navigate = useNavigate()
 
     render() {
         return (
             <>
                 <Router>
-                    <Menu></Menu>
-                    <br />
-                    <br />
+
 
                     <Routes>
+                        <Route path="/login" element={
+                            <Login></Login>
+                        }>
+                        </Route>
                         <Route path="/todo" element={
-                            <TodoAll></TodoAll>
+                            <>
+                                <Menu></Menu>
+                                <br />
+                                <br />
+                                <TodoAll></TodoAll>
+                            </>
                         }>
                         </Route>
                         <Route path="/users" element={
-                            <UserEdit></UserEdit>
+                            <>
+                            <Menu></Menu>
+                            <br />
+                            <br />
+                            <MainUser></MainUser>
+                            </>
                         }>
                         </Route>
                         <Route path="/doneTodo" element={
+                            <>
+                                <Menu></Menu>
+                                <br />
+                                <br />
                             <Donetodo></Donetodo>
+                            </>
+                        }>
+                        </Route>
+                        <Route path="/logout" element={
+                            <Logout></Logout>
                         }>
                         </Route>
                     </Routes>
