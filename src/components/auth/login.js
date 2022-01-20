@@ -6,11 +6,13 @@ import LoginError from "./alert";
 import axios from 'axios'
 import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom"
 import { Col, Container, Form, Row, Button, Alert } from "react-bootstrap"
+import Url from "../config/url"
 
 
 
 
-const Login = () => {
+
+const Login = (props) => {
 
 
     const [auth, setAuth] = React.useState(null);
@@ -23,22 +25,23 @@ const Login = () => {
     const authorization = (e) => {
         e.preventDefault()
 
-        axios.post('http://127.0.0.1:5000/auth/login', {
+        axios.post(Url + '/auth/login', {
             username: login,
             password: password
         })
             .then(function (response) {
-                if (response.data === "Błędne dane logowania!") {
+                if (response.data.token === null) {
                     setloginError(true)
                     console.log(response.data);
                 }
                 else {
                     setloginError(false)
-                    console.log(response.data.token);
-                    console.log(response.data);
+                    // console.log(response.data.token);
+                    // console.log(response.data);
+                    props.userWho(response.data.firstname)
+                    props.userRole(response.data)
                     navigate('/todo')
                 }
-
                 setAuth(response.data.token)
             })
             .catch(function (error) {

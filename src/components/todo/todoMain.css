@@ -1,20 +1,42 @@
-#container{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+#container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
-.addTodoSubmit{
-    width: 150px;
+.addTodoSubmit {
+  width: 150px;
 }
-.hr{
-    height: 1px;
-    width: 100% !important;
+.hr {
+  height: 1px;
+  width: 100% !important;
 }
-#hr{
-    height: 1px;
-    width: 100%;
-    max-height: ;
-    background-color: darkgray;
-    margin-bottom: 30px;
+#hr {
+  height: 1px;
+  width: 100%;
+  /* max-height: ; */
+  background-color: darkgray;
+  margin-bottom: 30px;
+}
+#span_whoadd {
+  color: darkgray;
+}
+
+#card_one_todo {
+  width: 100%;
+  max-width: 1000px;
+}
+#data_kurwa {
+  -webkit-appearance: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid #dce0e0;
+  color: #565a5c;
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Helvetica",
+    "Arial", "sans-serif";
+  text-align: center;
+  font-weight: 300;
+}
+#price{
+    margin-right: 40px;
 }

@@ -9,3 +9,20 @@
     margin: 0;
     color: darkgray;
 }
+#alert_user_exist{
+    margin-top: 10px;
+}
+#adduser_container{
+    max-width: 1000px;
+}
+#userlist{
+    margin: auto;
+    max-width: 1000px;
+}
+#alert_modal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin-right: 10px;
+    width: auto;
+}

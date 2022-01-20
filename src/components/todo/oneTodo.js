@@ -1,23 +1,18 @@
 import React from "react";
 import "./todoMain.css"
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { Card, Button, Container, Col, Row, Modal, Form } from "react-bootstrap"
 
+const Todos = (props) => {
 
-import { Card, Button, Container, Col, Row } from "react-bootstrap"
-
-
-// const todos = (todos, todoDelete) => {
-const todos = (props) => {
-    // const todoDelete = (id) => {
-    //     console.log("delete kurwa" + id)
-    // }
-
-
-    // function todoDelete(id){
-    //     console.log("delete kurwa")
-    // }
-
-    // console.log(todos.todos[0].company)
+    
+    const regeneration = {
+        'backgroundColor' : 'lemonchiffon' 
+    }
+    // const editTodo = (id) =>{
+    //     setIdTodo(id)
+    //     setShowEdit(true)
+    // } 
 
     let dataTodos = Array.from(props.todos)
 
@@ -26,74 +21,84 @@ const todos = (props) => {
             {dataTodos.map((todo) => {
                 return (
                     <>
-                        <div className="todo" key={todo.id}>
-                            <Card key={todo.id}>
-                                <Card.Body>
-                                    <Card.Title>
-                                        <Row>
-                                            <Col>{todo.id}</Col>
-                                            <Col>{todo.part}</Col>
-                                            <Col className="d-flex flex-row-reverse">{todo.collect_date}</Col>
-                                        </Row>
-                                    </Card.Title>
-                                    <br />
-                                    <Card.Subtitle className="mb-2 text-muted" style={{ fontSize: 'large' }}>
-                                        <Row>
-                                            <Col>
-                                                <label>
-                                                    Firma:
-                                                    <br />
-                                                    {todo.company}
-                                                </label>
-                                            </Col>
-                                            <Col>
-                                                <label>
-                                                    Indeks:
-                                                    <br />
-                                                    {todo.indexx}
-                                                </label>
-                                            </Col>
-                                            <Col>
-                                                <label>
-                                                    Numer opaski:
-                                                    <br />
-                                                    {todo.band_number}
-                                                </label>
-                                            </Col>
-                                            <Col className="d-flex flex-row-reverse">
-                                                <label>
-                                                    Cena:
-                                                    <br />
-                                                    {todo.price}
-                                                </label>
-                                            </Col>
-                                        </Row>
-                                    </Card.Subtitle>
-                                    <br />
-                                    <Card.Text>
-                                        <Row>
-                                            <Col>
-                                                <label>
-                                                    Uwagi:
-                                                    <br />
-                                                    {todo.note}
-                                                </label>
-                                            </Col>
-                                        </Row>
-                                    </Card.Text>
+
+                        <Card key={todo.id} id="card_one_todo" style={todo.condition == 'Nowe / używane' ? regeneration : null}>
+                            <Card.Body>
+                                <Card.Title>
                                     <Row>
-                                        <Col className="d-flex flex-row-reverse">
-                                            <Button variant="primary" type="Button" 
-                                            onClick={() => props.todoDelete(todo.id)}>
-                                                Wykonane
-                                            </Button>
+                                        <Col>{todo.id}</Col>
+                                        <Col>{todo.condition}</Col>
+                                        <Col>{todo.part}</Col>
+                                        <Col className="d-flex flex-row-reverse">{todo.collect_date}</Col>
+                                    </Row>
+                                </Card.Title>
+                                <br />
+                                <Card.Subtitle className="mb-2 text-muted" style={{ fontSize: 'large' }}>
+                                    <Row>
+                                        <Col>
+                                            <label>
+                                                Firma:
+                                                <br />
+                                                {todo.company}
+                                            </label>
+                                        </Col>
+                                        <Col>
+                                            <label>
+                                                Indeks:
+                                                <br />
+                                                {todo.indexx}
+                                            </label>
+                                        </Col>
+                                        <Col>
+                                            <label>
+                                                Numer opaski:
+                                                <br />
+                                                {todo.band_number}
+                                            </label>
+                                        </Col>
+                                        <Col id="price" className="d-flex flex-row-reverse">
+                                            <label>
+                                                Cena:
+                                                <br />
+                                                {todo.price}
+                                            </label>
                                         </Col>
                                     </Row>
+                                </Card.Subtitle>
+                                <br />
+                                <Card.Text>
+                                    <Row>
+                                        <Col>
+                                            <label>
+                                                Uwagi:
+                                                <br />
+                                                {todo.note}
+                                            </label>
+                                        </Col>
+                                    </Row>
+                                </Card.Text>
+                                <Row>
+                                    <Col>
+                                        <span id="span_whoadd">Dodał: {todo.whoAdd}</span>
+                                    </Col>
 
-                                </Card.Body>
-                            </Card>
-                            <br />
-                        </div>
+                                    <Col className="d-flex flex-row-reverse">
+                                        <Button variant="primary" type="Button"
+                                            onClick={() => props.todoDone(todo.id)}>
+                                            Wykonane
+                                        </Button>
+                                        <Button variant="warning" type="Button"
+                                        onClick={() => props.editTodo(todo.id)}
+                                        >
+                                            Edytuj
+                                        </Button>
+
+                                    </Col>
+                                </Row>
+
+                            </Card.Body>
+                        </Card>
+                        <br />
                     </>
                 )
             })}
@@ -101,4 +106,4 @@ const todos = (props) => {
     )
 }
 
-export default todos
+export default Todos

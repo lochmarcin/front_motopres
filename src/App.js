@@ -12,19 +12,7 @@ import Login from './components/auth/login'
 
 function App() {
 
-//   const [isLogin, setisLogin] = React.useState(null);
-
-//   React.useEffect(() => {
-//     axios.get('http://127.0.0.1:5000/todo/get').then((response) => {
-//         setTodos(response.data);
-
-//     });
-// }, []);
-
   return (
-    
-
-
     <Todo></Todo>
   );
 }

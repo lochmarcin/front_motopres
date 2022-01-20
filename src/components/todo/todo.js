@@ -3,54 +3,114 @@ import AddTodo from "./addTodo";
 import Todos from "./oneTodo";
 import axios from "axios"
 
+import TodoEdit from "./editTodo";
+import Url from "../config/url"
 
-const Todo = () => {
+import {Modal } from "react-bootstrap"
 
 
+import { useNavigate } from "react-router-dom"
+
+
+
+const Todo = (props) => {
+    const [showEdit, setShowEdit] = React.useState(false)
+    const [isUptaded, setIsUptaded] = React.useState(false)
+    const [oneTodo, setOneTodo] = React.useState(null)
+
+    const [isEditor, setIsEditor] = React.useState(false)
     const [todos, setTodos] = React.useState(null);
+    const navigate = useNavigate()
 
 
-    const todoDelete = async (id) => {
+
+    const todoDone = async (id) => {
         const newTodo = todos.filter(todo => todo.id !== id)
         setTodos(newTodo)
-        axios.put('http://127.0.0.1:5000/todo/updateDone/'+id).then((response) => {
+        axios.put(Url + '/todo/updateDone/' + id).then((response) => {
             console.log('Usunięto todo o id: ' + id)
         });
 
     }
-    const todoAdd = (data) => {
+    const todoAdd = async (data) => {
+        const newTodo = todos
+        newTodo.push(data)
+        setTodos(newTodo)
+        navigate('/todo')
+    };
+
+    const editTodo = (id) => {
+        console.log("Id " + id)
+        let onetodo = todos.filter(x => x.id === id)
+        console.log(onetodo[0])
+        setOneTodo(onetodo[0])
+        // setIdEditTodo(id)
+        setShowEdit(true)
+    }
+
+    const updatedTodo = (data) => {
         console.log(data)
-        // todos.push()
-        // setTodos(newTodo)
-            todos.push(data)
+        let newTodo = todos.filter(todos => todos.id !== data.id)
+        newTodo.push(data)
+        setTodos(newTodo)
+        updatedAlert()
+    }
 
-            console.log("powinno dodaś do listy...")
-        };
+    const updatedAlert = () => {
+        setIsUptaded(true)
+        setTimeout(
+            () => setIsUptaded(false),
+            3000
+        );
+    }
 
-    
+
 
     React.useEffect(() => {
-        axios.get('http://127.0.0.1:5000/todo/get').then((response) => {
+        axios.get(Url + '/todo/get').then((response) => {
             setTodos(response.data);
-            console.log(response.data)
+            // console.log(response.data)
         });
 
-        axios.get('http://127.0.0.1:5000/auth/me').then((response) => {
-            console.log(response.data)
+
+        if(props.role != "admin" || props.role != "editor"){
+            axios.get(Url + '/users/me').then((response) => {
+            response.data.isAdmin == true ? setIsEditor(true) : setIsEditor(false)
         });
+        }
+        else{
+            setIsEditor(true)
+        }
+
+
+        // if (props.role == "editor" || props.role == "admin")
+        //     setIsEditor(true)
+        // axios.get('http://127.0.0.1:5000/auth/me').then((response) => {
+        //     console.log(response.data)
+        // });
     }, []);
 
     return (
         <>
             <div id="container">
                 <div id="AddTodo">
-                    <AddTodo todoAdd={todoAdd}></AddTodo>
+                    {isEditor && <AddTodo todoAdd={todoAdd}></AddTodo>}
                 </div>
-                <br />
+                {/* <br />
                 <br />
 
-                <div id="hr"></div>
-                {todos && <Todos todos={todos} todoDelete={todoDelete}></Todos>}
+                <div id="hr"></div> */}
+                {todos && <Todos todos={todos} todoDone={todoDone} editTodo={editTodo}></Todos>}
+
+                {showEdit && <TodoEdit setShowEdit={setShowEdit} oneTodo={oneTodo} updatedTodo={updatedTodo} />}
+
+                {isUptaded && <Modal.Dialog
+                    id="alert_modal">
+                    <Modal.Header closeButton>
+                        <Modal.Title>Zaaktualizowano zadanie </Modal.Title>
+                    </Modal.Header>
+                </Modal.Dialog>
+                }
 
             </div>
         </>
