@@ -6,7 +6,7 @@ import axios from "axios"
 import TodoEdit from "./editTodo";
 import Url from "../config/url"
 
-import {Modal } from "react-bootstrap"
+import { Modal } from "react-bootstrap"
 
 
 import { useNavigate } from "react-router-dom"
@@ -72,14 +72,19 @@ const Todo = (props) => {
             // console.log(response.data)
         });
 
-
-        if(props.role != "admin" || props.role != "editor"){
-            axios.get(Url + '/users/me').then((response) => {
-            response.data.isAdmin == true ? setIsEditor(true) : setIsEditor(false)
-        });
-        }
-        else{
+        console.log(props.role)
+        if(props.role == 'admin' || props.role =='editor'){
             setIsEditor(true)
+        }
+        else if (props.role == null) {
+            console.log("axios-get")
+            axios.get(Url + '/users/me').then((response) => {
+                console.log(response.data)
+                response.data.isEditor == true || response.data.isAdmin == true ? setIsEditor(true) : setIsEditor(false)
+            });
+        }
+        else {
+            setIsEditor(false)
         }
 
 
