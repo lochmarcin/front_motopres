@@ -11,6 +11,9 @@ import Logout from "../auth/logout";
 import MainUser from "../user/userMain";
 import axios from 'axios'
 import Auth from '../auth/whoRoleUser'
+import Slash from './fromSlash'
+import Logged from "../config/isLogged"
+import Permission from "../config/isPermission"
 import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom"
 
 
@@ -19,15 +22,15 @@ const Todo = () => {
     const [role, setRole] = React.useState(null)
     const [who, setWho] = React.useState(null)
 
-    const userRole = (data) =>{
+    const userRole = (data) => {
         console.log(data)
-        if(data.isAdmin == true)
+        if (data.isAdmin === true)
             setRole("admin")
-        else if(data.isEditor == true)
+        else if (data.isEditor === true)
             setRole("editor")
         else
             setRole("viewer")
-        
+
     }
     const userWho = (data) => {
         setWho(data)
@@ -37,16 +40,19 @@ const Todo = () => {
         <>
             <Router>
                 <Routes>
+                    <Route path="/" element={
+                        <Slash></Slash>
+                    }>
+                    </Route>
                     <Route path="/login" element={
                         <Login userWho={userWho} userRole={userRole}></Login>
                     }>
                     </Route>
                     <Route path="/todo" element={
                         <>
+                            <Logged></Logged>
                             <Menu role={role} who={who}></Menu>
                             <br />
-                                {/* {role}
-                                {who} */}
                             <br />
                             <TodoAll role={role}></TodoAll>
                         </>
@@ -54,6 +60,8 @@ const Todo = () => {
                     </Route>
                     <Route path="/users" element={
                         <>
+                            <Permission></Permission>
+                            <Logged></Logged>
                             <Menu who={who}></Menu>
                             <br />
                             <br />
@@ -63,6 +71,7 @@ const Todo = () => {
                     </Route>
                     <Route path="/doneTodo" element={
                         <>
+                            <Logged></Logged>
                             <Menu who={who}></Menu>
                             <br />
                             <br />

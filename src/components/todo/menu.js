@@ -14,6 +14,9 @@ const Menu = (props) => {
     
 
     React.useEffect(() => {
+
+        
+
         if(props.role != "admin"){
             axios.get(Url + '/users/me').then((response) => {
             // console.log(response.data)

@@ -14,7 +14,7 @@ const Logout = (props) =>{
     }
 
     React.useEffect(() => {
-        axios.get(Url + '/auth/logout')
+        axios.delete(Url + '/auth/logout')
         .then((response) => {
             props.userRole(setLogoutRole)
             props.userWho("")

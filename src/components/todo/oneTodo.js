@@ -5,9 +5,9 @@ import { Card, Button, Container, Col, Row, Modal, Form } from "react-bootstrap"
 
 const Todos = (props) => {
 
-    
+
     const regeneration = {
-        'backgroundColor' : 'lemonchiffon' 
+        'backgroundColor': 'lemonchiffon'
     }
     // const editTodo = (id) =>{
     //     setIdTodo(id)
@@ -83,12 +83,17 @@ const Todos = (props) => {
                                     </Col>
 
                                     <Col className="d-flex flex-row-reverse">
-                                        <Button variant="primary" type="Button"
+                                        <Button
+                                            variant="primary"
+                                            type="Button"
                                             onClick={() => props.todoDone(todo.id)}>
                                             Wykonane
                                         </Button>
-                                        <Button variant="warning" type="Button"
-                                        onClick={() => props.editTodo(todo.id)}
+                                        <Button
+                                            id="button_todo_delete"
+                                            variant="warning"
+                                            type="Button"
+                                            onClick={() => props.editTodo(todo.id)}
                                         >
                                             Edytuj
                                         </Button>

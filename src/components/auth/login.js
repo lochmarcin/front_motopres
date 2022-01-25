@@ -28,7 +28,7 @@ const Login = (props) => {
         axios.post(Url + '/auth/login', {
             username: login,
             password: password
-        })
+        }, {withCredentials: true})
             .then(function (response) {
                 if (response.data.token === null) {
                     setloginError(true)

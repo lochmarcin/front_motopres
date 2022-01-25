@@ -2,6 +2,7 @@ import React from "react";
 import AddTodo from "./addTodo";
 import Todos from "./oneTodo";
 import axios from "axios"
+import Logged from "./fromSlash"
 
 import TodoEdit from "./editTodo";
 import Url from "../config/url"
@@ -47,6 +48,8 @@ const Todo = (props) => {
         // setIdEditTodo(id)
         setShowEdit(true)
     }
+
+    
 
     const updatedTodo = (data) => {
         console.log(data)

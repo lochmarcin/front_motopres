@@ -51,13 +51,14 @@ const OneUser = (props) => {
                                                 </Col>
                                                 <Col>
                                                     <Button
-                                                        variant="primary"
+                                                        id="user_edit_button"
+                                                        variant="warning"
                                                         onClick={() => props.modal(user.id)}
                                                     >Edytuj</Button>
                                                 </Col>
                                                 <Col>
                                                     <Button
-                                                        variant="primary"
+                                                        variant="danger"
                                                         onClick={() => props.delUser(user.id)}
                                                     >Usuń</Button>
                                                 </Col>

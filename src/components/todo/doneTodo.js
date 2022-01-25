@@ -7,6 +7,8 @@ import DoneTodo from "./doneTodoOne";
 
 const Donetodos = () => {
     const [todos, setTodos] = React.useState(null);
+    // const [alert, setAlert] = React.useState(false);
+
 
     const todoRestore = async (id) => {
         const newTodo = todos.filter(todo => todo.id !== id)
@@ -15,6 +17,17 @@ const Donetodos = () => {
             console.log('przeniesiono zadanie do wykoania o id: ' + id)
         })
     }
+    // Todo delete 
+    const deleteTodo = (id) => {
+        console.log("IDelete: " + id)
+        axios.delete(Url + '/todo/delete/' + id).then((response) => {
+            if(response.data == true)
+                console.log("Deleted")
+        })
+        const newTodo = todos.filter(todo => todo.id !== id)
+        setTodos(newTodo)
+    }
+
     React.useEffect(() => {
         axios.get(Url + '/todo/getDone').then((response) => {
             setTodos(response.data);
@@ -25,7 +38,7 @@ const Donetodos = () => {
         <>
             <div id="container">
                 <h1>Wykonane zadania:</h1>
-                {todos && <DoneTodo todos={todos} todoRestore={todoRestore}></DoneTodo>}
+                {todos && <DoneTodo todos={todos} todoRestore={todoRestore} deleteTodo={deleteTodo}></DoneTodo>}
             </div>
         </>
     )
