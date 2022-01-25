@@ -11,18 +11,18 @@ const DoneTodo = (props) => {
     const [alert, setAlert] = React.useState(false);
 
 
-    // const updatedAlert = () => {
-    //     console.log("CHUJ")
-    //     setAlert(true)
-    //     setTimeout(
-    //         () => setAlert(false),
-    //         3000
-    //     );
-    // }
+    const updatedAlert = () => {
+        console.log("CHUJ")
+        setAlert(true)
+        setTimeout(
+            () => setAlert(false),
+            3000
+        );
+    }
 
     const delete_tudo_button = (id) => {
+        updatedAlert()
         props.deleteTodo(id)
-        // updatedAlert()
     }
 
     const regeneration = {
@@ -120,13 +120,13 @@ const DoneTodo = (props) => {
                             </Card.Body>
                         </Card>
                         <br />
-                        {/* {alert && <Modal.Dialog
+                        {alert && <Modal.Dialog
                             id="alert_modal">
                             <Modal.Header closeButton>
                                 <Modal.Title>Usunięto </Modal.Title>
                             </Modal.Header>
                         </Modal.Dialog>
-                        } */}
+                        }
 
                     </>
                 )
