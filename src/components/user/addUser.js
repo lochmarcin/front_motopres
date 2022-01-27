@@ -62,13 +62,6 @@ const AddUser = () => {
 
     }
 
-    React.useEffect(() => {
-        setTimeout(
-            () => console.log("CHUj"),
-            3000
-        );
-    }, []);
-
 
     return (
         <>
@@ -125,7 +118,7 @@ const AddUser = () => {
 
                             <Form.Check
                                 inline
-                                checked={true}
+                                defaultChecked={true}
                                 label="- Dostęp do zadań"
                                 type='checkbox'
                                 id={`inline-checkbox-1`}
@@ -138,7 +131,7 @@ const AddUser = () => {
                                 label="- Dodawanie zleceń"
                                 type='checkbox'
                                 id={`inline-checkbox-2`}
-                                checked={isEditor}
+                                defaultChecked={isEditor}
                                 onChange={(e) => setEditor(e.target.value)}
                             />
                         </Col>
@@ -148,7 +141,7 @@ const AddUser = () => {
                                 label="- Administrator"
                                 type='checkbox'
                                 id={`inline-checkbox-3`}
-                                checked={isAdmin}
+                                defaultChecked={isAdmin}
                                 onChange={(e) => setAdmin(e.target.value)}
                             />
                         </Col>

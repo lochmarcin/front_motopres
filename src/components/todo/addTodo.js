@@ -12,7 +12,7 @@ import Url from "../config/url"
 axios.defaults.withCredentials = true;
 
 const AddTodo = (props) => {
-    const [stan, setStan] = React.useState('')
+    const [stan, setStan] = React.useState('Regenerowane')
     const [towar, setTowar] = React.useState('')
     const [collectDate, setCollectDate] = React.useState(new Date())
     const [company, setCompany] = React.useState('')
@@ -60,10 +60,7 @@ const AddTodo = (props) => {
 
 
     }
-    React.useEffect(() => {
-        console.log(moment().format("DD-MM-YYYY"))
 
-    }, []);
 
 
     return (
@@ -78,8 +75,8 @@ const AddTodo = (props) => {
                                     onChange={(e) => setStan(e.target.value)}
                                 >
                                     <option disabled value="">Wybierz...</option>
-                                    <option value="Regenerowane">Regenerowane</option>
-                                    <option selected="selected" value="Nowe / używane">Nowe / używane</option>
+                                    <option selected="selected" value="Regenerowane">Regenerowane</option>
+                                    <option value="Nowe / używane">Nowe / używane</option>
                                 </Form.Select>
                             </label>
                         </Col>

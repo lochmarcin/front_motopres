@@ -28,10 +28,8 @@ const Todo = (props) => {
     const todoDone = async (id) => {
         const newTodo = todos.filter(todo => todo.id !== id)
         setTodos(newTodo)
-        axios.put(Url + '/todo/updateDone/' + id).then((response) => {
-            console.log('Usunięto todo o id: ' + id)
-        });
-
+        axios.put(Url + '/todo/updateDone/' + id)
+        
     }
     const todoAdd = async (data) => {
         const newTodo = todos
@@ -72,17 +70,15 @@ const Todo = (props) => {
     React.useEffect(() => {
         axios.get(Url + '/todo/get').then((response) => {
             setTodos(response.data);
-            // console.log(response.data)
         });
 
-        console.log(props.role)
+        // console.log(props.role)
         if(props.role == 'admin' || props.role =='editor'){
             setIsEditor(true)
         }
         else if (props.role == null) {
-            console.log("axios-get")
             axios.get(Url + '/users/me').then((response) => {
-                console.log(response.data)
+                // console.log(response.data)
                 response.data.isEditor == true || response.data.isAdmin == true ? setIsEditor(true) : setIsEditor(false)
             });
         }

@@ -28,7 +28,7 @@ const DoneTodo = (props) => {
     const regeneration = {
         'backgroundColor': 'lemonchiffon'
     }
-    // console.log(todos.todos[0].company)
+
     let dataTodos = Array.from(props.todos)
     return (
         <>
@@ -114,6 +114,7 @@ const DoneTodo = (props) => {
                                         >
                                             Usuń
                                         </Button>
+ 
                                     </Col>
                                 </Row>
 
