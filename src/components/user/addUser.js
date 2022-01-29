@@ -47,7 +47,7 @@ const AddUser = () => {
             isAdmin: isAdmin
         })
             .then(function (response) {
-                if (response.data.exists == true) {
+                if (response.data.exists === true) {
                     setExists(true)
                 }
                 else {

@@ -81,6 +81,11 @@ const Todos = (props) => {
                                     <Col>
                                         <span id="span_whoadd">Dodał: {todo.whoAdd}</span>
                                     </Col>
+                                    <Col>
+                                        {todo.whoRestored &&
+                                            <span id="span_whoadd">Przywrócił: {todo.whoRestored}</span>
+                                        }
+                                    </Col>
 
                                     <Col className="d-flex flex-row-reverse">
                                         <Button

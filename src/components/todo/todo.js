@@ -85,14 +85,7 @@ const Todo = (props) => {
         else {
             setIsEditor(false)
         }
-
-
-        // if (props.role == "editor" || props.role == "admin")
-        //     setIsEditor(true)
-        // axios.get('http://127.0.0.1:5000/auth/me').then((response) => {
-        //     console.log(response.data)
-        // });
-    }, []);
+    },[]);
 
     return (
         <>
