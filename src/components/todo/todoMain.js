@@ -14,7 +14,11 @@ import Auth from '../auth/whoRoleUser'
 import Slash from './fromSlash'
 import Logged from "../config/isLogged"
 import Permission from "../config/isPermission"
+import ApkMain from "../superuser/updateApkMain"
 import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom"
+
+import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
+
 
 
 
@@ -50,11 +54,16 @@ const Todo = () => {
                     </Route>
                     <Route path="/todo" element={
                         <>
-                            <Logged></Logged>
-                            <Menu role={role} who={who}></Menu>
-                            <br />
-                            <br />
-                            <TodoAll role={role}></TodoAll>
+                            <BrowserView>
+                                <Logged></Logged>
+                                <Menu role={role} who={who}></Menu>
+                                <br />
+                                <br />
+                                <TodoAll role={role}></TodoAll>
+                            </BrowserView>
+                            <MobileView>
+                                <p>MOBILE VIEW</p>
+                            </MobileView>
                         </>
                     }>
                     </Route>
@@ -76,6 +85,17 @@ const Todo = () => {
                             <br />
                             <br />
                             <Donetodo></Donetodo>
+                        </>
+                    }>
+                    </Route>
+
+                    <Route path="/sendApkFile" element={
+                        <>
+                            <Logged></Logged>
+                            <Menu who={who}></Menu>
+                            <br />
+                            <br />
+                            <ApkMain></ApkMain>
                         </>
                     }>
                     </Route>

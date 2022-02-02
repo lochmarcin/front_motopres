@@ -8,6 +8,9 @@ import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-route
 import { Col, Container, Form, Row, Button, Alert } from "react-bootstrap"
 import Url from "../config/url"
 
+import FileSaver from 'file-saver';
+import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
+
 
 
 
@@ -25,29 +28,48 @@ const Login = (props) => {
     const authorization = (e) => {
         e.preventDefault()
 
-        axios.post(Url + '/auth/login', {
-            username: login,
-            password: password
-        }, {withCredentials: true})
-            .then(function (response) {
-                if (response.data.token === null) {
-                    setloginError(true)
-                    console.log(response.data);
-                }
-                else {
-                    setloginError(false)
-                    // console.log(response.data.token);
-                    // console.log(response.data);
-                    props.userWho(response.data.firstname)
-                    props.userRole(response.data)
-                    navigate('/todo')
-                }
-                setAuth(response.data.token)
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        if(isMobile) {
+            return (
+                <div> Aby móc korzystać na telefonie pobierz aplikację poniżej</div>
+            )
+        }
+        return (
+            
+            axios.post(Url + '/auth/login', {
+                username: login,
+                password: password
+            }, { withCredentials: true })
+                .then(function (response) {
+                    if (response.data.token === null) {
+                        setloginError(true)
+                        console.log(response.data);
+                    }
+                    else {
+                        setloginError(false)
+                        // console.log(response.data.token);
+                        // console.log(response.data);
+                        props.userWho(response.data.firstname)
+                        props.userRole(response.data)
+                        navigate('/todo')
+                    }
+                    setAuth(response.data.token)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
 
+        )
+
+    }
+
+    const download = async () => {
+        // e.preventDefault()
+        try {
+            console.log("Pobierz")
+            FileSaver.saveAs(`${Url}/upload/download`, "app-release.apk");
+        } catch (err) {
+            console.log(err)
+        }
     }
 
 
@@ -91,9 +113,25 @@ const Login = (props) => {
                                 className="button_zaloguj">
                                 Zaloguj
                             </Button>
-                            
+
                             {loginError && <LoginError></LoginError>}
                         </Form>
+                    </Col>
+                </Row>
+                <br />
+                <br />
+                <br />
+
+                <Row>
+                    <Col md={{ span: 4, offset: 4 }} id="download">
+                        <p><b>Pobierz aplikację mobilną Motopres</b></p>
+                        <Button
+                            variant="primary"
+                            type="button"
+                            className="button_download"
+                            onClick={() => download()}>
+                            Pobierz
+                        </Button>
                     </Col>
                 </Row>
             </Container>

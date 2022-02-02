@@ -27,3 +27,13 @@
 .button_zaloguj{
     width: 100%;
 }
+#download{
+    display: flex;
+
+    justify-content: center;
+    flex-direction: column;
+    
+}
+#download p{
+    margin: 0;
+}
