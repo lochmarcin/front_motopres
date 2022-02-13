@@ -1,12 +1,16 @@
 import React from "react"
 import axios from "axios";
 import Url from "../config/url"
+import Filter from "./filter"
+
 
 
 import DoneTodo from "./doneTodoOne";
 
 const Donetodos = () => {
     const [todos, setTodos] = React.useState(null);
+    const [radioValue, setRadioValue] = React.useState("Wszystko");
+
     // const [alert, setAlert] = React.useState(false);
 
 
@@ -21,7 +25,7 @@ const Donetodos = () => {
     const deleteTodo = (id) => {
         console.log("IDelete: " + id)
         axios.delete(Url + '/todo/delete/' + id).then((response) => {
-            if(response.data == true)
+            if (response.data == true)
                 console.log("Deleted")
         })
         const newTodo = todos.filter(todo => todo.id !== id)
@@ -37,8 +41,10 @@ const Donetodos = () => {
     return (
         <>
             <div id="container">
+                <Filter radioValue={radioValue} setRadioValue={setRadioValue}></Filter>
+
                 <h1>Wykonane zadania:</h1>
-                {todos && <DoneTodo todos={todos} todoRestore={todoRestore} deleteTodo={deleteTodo}></DoneTodo>}
+                {todos && <DoneTodo radioValue={radioValue} todos={todos} todoRestore={todoRestore} deleteTodo={deleteTodo}></DoneTodo>}
             </div>
         </>
     )

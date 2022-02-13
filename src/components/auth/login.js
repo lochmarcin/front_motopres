@@ -22,6 +22,8 @@ const Login = (props) => {
     const [login, setLogin] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [loginError, setloginError] = React.useState(null);
+    const [mobile, setMobile] = React.useState(false);
+
     const navigate = useNavigate()
 
 
@@ -121,7 +123,7 @@ const Login = (props) => {
                 <br />
                 <br />
                 <br />
-
+                {mobile && alert("Aby móc korzystac na telefonie pobierz aplikację mobilną")}
                 <Row>
                     <Col md={{ span: 4, offset: 4 }} id="download">
                         <p><b>Pobierz aplikację mobilną Motopres</b></p>

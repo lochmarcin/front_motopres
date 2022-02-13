@@ -25,25 +25,49 @@ const DoneTodo = (props) => {
         props.deleteTodo(id)
     }
 
+    let style
     const regeneration = {
         'backgroundColor': 'lemonchiffon'
+    }
+    const displayNone = {
+        'display': 'none'
     }
 
     let dataTodos = Array.from(props.todos)
     return (
         <>
             {dataTodos.map((todo) => {
+                {
+                    if (todo.condition == 'Nowe / używane') {
+                        if (todo.condition != props.radioValue)
+                            style = displayNone
+                        else
+                            style = regeneration
+                    }
+                    if (todo.condition == 'Regenerowane')
+                        if (todo.condition != props.radioValue)
+                            style = displayNone
+                        else
+                            style = null
+
+                    if (props.radioValue == 'Wszystko')
+                        if (todo.condition == 'Nowe / używane')
+                            style = regeneration
+                        else
+                            style = null
+                }
                 return (
                     <>
 
-                        <Card key={todo.id} id="card_one_todo" style={todo.condition == 'Nowe / używane' ? regeneration : null}>
+                        <Card key={todo.id} id="card_one_todo" style={style}>
                             <Card.Body>
                                 <Card.Title>
                                     <Row>
-                                        <Col>{todo.id}</Col>
+                                        <Col>{todo.internal_id}</Col>
                                         <Col>{todo.condition}</Col>
                                         <Col>{todo.part}</Col>
-                                        <Col className="d-flex flex-row-reverse">{todo.collect_date}</Col>
+                                        {/* <Col className="d-flex flex-row-reverse">{todo.collect_date}</Col>   */}
+                                        <Col className="d-flex flex-row-reverse">{todo.condition == 'Regenerowane' ? `${todo.time_morning == true ? 'rano' : 'wieczór'}  -  ${todo.collect_date}` : todo.collect_date}</Col>
                                     </Row>
                                 </Card.Title>
                                 <br />
@@ -54,6 +78,16 @@ const DoneTodo = (props) => {
                                                 Firma:
                                                 <br />
                                                 {todo.company}
+                                            </label>
+                                        </Col>
+                                        <Col>
+                                            <label>
+                                                Kaucja/magazyn :
+                                                <br />
+                                                {/* {todo.deposit} */}
+                                                {todo.deposit == true ? <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512" height='30' width='30' color='green'><title>Checkmark</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96"/></svg> :
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="ionicon" viewBox="0 0 512 512" height='30' width='30' color='red'><title>Close</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/></svg>}
+                                                
                                             </label>
                                         </Col>
                                         <Col>

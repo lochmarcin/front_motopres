@@ -43,3 +43,22 @@
 #button_todo_delete{
   margin-right: 20px;
 }
+#radio_morning{
+  margin-top: 1rem;
+}
+#label_deposit{
+  margin-top: 1.5rem;
+  display: flex;
+}
+#label_deposit_second{
+  display: flex;
+}
+.ion-icon {
+  font-size: 20px;
+}
+#filter_buttons{
+  margin-bottom: 30px;
+}
+#modal_edit_set_time{
+  max-width: 150px;
+}

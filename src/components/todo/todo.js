@@ -3,6 +3,7 @@ import AddTodo from "./addTodo";
 import Todos from "./oneTodo";
 import axios from "axios"
 import Logged from "./fromSlash"
+import Filter from "./filter"
 
 import TodoEdit from "./editTodo";
 import Url from "../config/url"
@@ -18,6 +19,8 @@ const Todo = (props) => {
     const [showEdit, setShowEdit] = React.useState(false)
     const [isUptaded, setIsUptaded] = React.useState(false)
     const [oneTodo, setOneTodo] = React.useState(null)
+    const [radioValue, setRadioValue] = React.useState("Wszystko");
+
 
     const [isEditor, setIsEditor] = React.useState(false)
     const [todos, setTodos] = React.useState(null);
@@ -97,7 +100,8 @@ const Todo = (props) => {
                 <br />
 
                 <div id="hr"></div> */}
-                {todos && <Todos todos={todos} todoDone={todoDone} editTodo={editTodo}></Todos>}
+                <Filter radioValue={radioValue} setRadioValue={setRadioValue}></Filter>
+                {todos && <Todos radioValue={radioValue} todos={todos} todoDone={todoDone} editTodo={editTodo}></Todos>}
 
                 {showEdit && <TodoEdit setShowEdit={setShowEdit} oneTodo={oneTodo} updatedTodo={updatedTodo} />}
 

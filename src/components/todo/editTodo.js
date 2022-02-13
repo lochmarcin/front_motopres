@@ -11,9 +11,12 @@ import { Button, Container, Col, Row, Modal, Form } from "react-bootstrap"
 
 
 const TodoEdit = (props) => {
+    const [id, setId] = React.useState('')
     const [condition, setCondition] = React.useState('')
     const [towar, setTowar] = React.useState('')
     const [collectDate, setCollectDate] = React.useState(new Date())
+    const [time_morning, setTime_morning] = React.useState(true)
+    const [deposit, setDeposit] = React.useState(false)
     const [company, setCompany] = React.useState('')
     const [index, setIndex] = React.useState('')
     const [bandNumber, setBandNumber] = React.useState('')
@@ -26,8 +29,11 @@ const TodoEdit = (props) => {
         let date = moment(collectDate).format("YYYY-MM-DD")
 
         let data = {
-            id:props.oneTodo.id,
+            id: props.oneTodo.id,
+            internal_id: id,
             condition: condition,
+            time_morning: time_morning,
+            deposit: deposit,
             part: towar,
             collect_date: date,
             company: company,
@@ -57,9 +63,12 @@ const TodoEdit = (props) => {
     }
 
     React.useEffect(() => {
-        console.log(props.oneTodo)
+        // console.log(props.oneTodo)
+        setId(props.oneTodo.internal_id)
+        setTime_morning(props.oneTodo.time_morning)
+        setDeposit(props.oneTodo.deposit)
         setCondition(props.oneTodo.condition)
-        console.log(props.oneTodo.condition)
+        // console.log(props.oneTodo.condition)
         setTowar(props.oneTodo.part)
         setCollectDate(moment(props.oneTodo.collect_date).toDate())
         setCompany(props.oneTodo.company)
@@ -88,11 +97,21 @@ const TodoEdit = (props) => {
                 </Modal.Header>
                 <Modal.Body>
                     <Container>
-
+                        {/* <span> CHUJ </span> */}
                         <Form
                             onSubmit={editOneTodo}
                         >
                             <Row className="justify-content-md-center">
+                                <Col xs="auto" sm="auto" md="auto" lg="auto">
+                                    <label>Id wewnętrzne:
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Wpisz id"
+                                            value={id}
+                                            onChange={(e) => setId(e.target.value)}
+                                        />
+                                    </label>
+                                </Col>
                                 <Col xs="auto" sm="auto" md="auto" lg="auto" >
                                     <label>Stan części
                                         <Form.Select
@@ -128,9 +147,41 @@ const TodoEdit = (props) => {
                                         />
                                     </label>
                                 </Col>
+                                <Col id="modal_edit_set_time">
+                                    <div id="radio_morning">
+                                        <label id="label_deposit">
+                                            <Form.Check
+                                                type='radio'
+                                                name="time_morning"
+                                                defaultChecked={true}
+                                                onChange={() => setTime_morning(true)}
+                                            />
+                                            - rano
+                                        </label>
+                                        <label id="label_deposit_second">
+                                            <Form.Check
+                                                type='radio'
+                                                name="time_morning"
+                                                onChange={() => setTime_morning(false)}
+                                            />
+                                            - wieczór
+                                        </label>
+                                    </div>
+                                </Col>
                             </Row>
                             <br />
                             <Row className="justify-content-md-center">
+                                <Col xs="auto" sm="auto" md="auto" lg="auto">
+                                    <label id="label_deposit">
+                                        <Form.Check
+                                            type='checkbox'
+                                            name="deposit"
+                                            defaultChecked={deposit}
+                                            onChange={() => setDeposit(!deposit)}
+                                        />
+                                        Kaucja / magazyn
+                                    </label>
+                                </Col>
                                 <Col xs="auto" sm="auto" md="auto" lg="auto">
                                     <label>Firma:
                                         <Form.Control
@@ -213,7 +264,7 @@ const TodoEdit = (props) => {
                 </Modal.Footer>
             </Modal>
 
-            
+
         </>
     )
 }

@@ -2,12 +2,13 @@ import React from "react";
 import axios from "axios";
 import { Form, Button, ProgressBar } from "react-bootstrap";
 import Url from "../config/url"
+import OneFile from "./oneFile";
 
 
 const Apk = () => {
 
     const [selectedFile, setSelectedFile] = React.useState(null)
-
+    const [files, setFiles] = React.useState([])
 
     const sendFile = (e) => {
         e.preventDefault()
@@ -64,12 +65,24 @@ const Apk = () => {
 
 
 
+    React.useEffect(() => {
+        console.log("useEffect")
+        
+        axios.get(Url + '/upload/getFiles').then((response) => {
+            console.log(response.data);
+            setFiles(response.data)
+        });
+
+    }, []);
+
     const now = 60;
     return (
         <>
             <div id="container">
                 <Form onSubmit={sendFile}>
-                    <Form.Group controlId="formFile" className="mb-3">
+                    <Form.Group controlId="formFile" 
+                    className="mb-3"
+                    >
 
                         <Form.Label>Dodaj plik instalacyjny aplikacji</Form.Label>
                         <Form.Control
@@ -87,6 +100,10 @@ const Apk = () => {
                         <ProgressBar now={now} label={`${now}%`} />
                     </Form.Group>
                 </Form>
+
+            <OneFile files={files}></OneFile>
+
+
             </div>
         </>
     )

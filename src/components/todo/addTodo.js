@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Container, Form, Row, Button,Modal } from "react-bootstrap"
+import { Col, Container, Form, Row, Button, Modal } from "react-bootstrap"
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css'
@@ -12,9 +12,13 @@ import Url from "../config/url"
 axios.defaults.withCredentials = true;
 
 const AddTodo = (props) => {
+    const [id, setId] = React.useState('')
     const [stan, setStan] = React.useState('Regenerowane')
     const [towar, setTowar] = React.useState('')
     const [collectDate, setCollectDate] = React.useState(new Date())
+    const [time_morning, setTime_morning] = React.useState(false)
+
+    const [deposit, setDeposit] = React.useState(false)
     const [company, setCompany] = React.useState('')
     const [index, setIndex] = React.useState('')
     const [bandNumber, setBandNumber] = React.useState('')
@@ -38,11 +42,13 @@ const AddTodo = (props) => {
 
         let date = moment(collectDate).format("YYYY-MM-DD")
 
-
         axios.post(Url + '/todo/add', {
+            internal_id: id,
             condition: stan,
             part: towar,
             collect_date: date,
+            time_morning: time_morning,
+            deposit: deposit,
             company: company,
             indexx: index,
             band_number: bandNumber,
@@ -57,17 +63,23 @@ const AddTodo = (props) => {
             .catch(function (error) {
                 console.log(error);
             });
-
-
     }
-
-
 
     return (
         <>
             <Container>
                 <Form onSubmit={addOneTodo}>
                     <Row className="justify-content-md-center">
+                        <Col xs="auto" sm="auto" md="auto" lg="auto">
+                            <label>Id wewnętrzne:
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Wpisz id"
+                                    value={id}
+                                    onChange={(e) => setId(e.target.value)}
+                                />
+                            </label>
+                        </Col>
                         <Col xs="auto" sm="auto" md="auto" lg="auto" >
                             <label>Stan części
                                 <Form.Select
@@ -107,9 +119,43 @@ const AddTodo = (props) => {
                                 onChange={(e) => setCollectDate(e.target.value)} /> */}
                             </label>
                         </Col>
+                        <Col>
+                            <div id="radio_morning">
+                                <label id="label_deposit">
+                                    <Form.Check
+                                        type='radio'
+                                        name="time_morning"
+                                        defaultChecked={true}
+                                        onChange={() => setTime_morning(true)}
+                                    />
+                                    - rano
+                                </label>
+                                <label id="label_deposit_second">
+                                    <Form.Check
+                                        type='radio'
+                                        name="time_morning"
+                                        onChange={() => setTime_morning(false)}
+                                    />
+                                    - wieczór
+                                </label>
+                            </div>
+                        </Col>
                     </Row>
                     <br />
                     <Row className="justify-content-md-center">
+
+                        <Col xs="auto" sm="auto" md="auto" lg="auto">
+                            <label id="label_deposit">
+                                <Form.Check
+                                    type='checkbox'
+                                    name="deposit"
+                                    defaultChecked={deposit}
+                                    onChange={() => setDeposit(!deposit)}
+                                />
+                                Kaucja / magazyn
+                            </label>
+                        </Col>
+
                         <Col xs="auto" sm="auto" md="auto" lg="auto">
                             <label>Firma:
                                 <Form.Control
@@ -155,14 +201,15 @@ const AddTodo = (props) => {
                     </Row>
                     <br />
                     <Row className="justify-content-md-center">
-                        <Col xs="auto" sm="auto" md="auto" lg="auto">
-                            <label>Uwagi:
+                        <Col xs="auto" sm="auto" md="auto" lg="8">
+                            <label>Uwagi:</label>
                                 <Form.Control
+                                lg="6"
                                     type="text"
                                     placeholder="Uwagi"
                                     value={note}
                                     onChange={(e) => setNote(e.target.value)} />
-                            </label>
+                            
                         </Col>
 
                         <Col xs="auto" sm="auto" md="auto" lg="auto" className="d-flex flex-row-reverse">
@@ -185,12 +232,12 @@ const AddTodo = (props) => {
             <div id="hr"></div>
 
             {showModal && <Modal.Dialog
-                    id="alert_modal">
-                    <Modal.Header closeButton>
-                        <Modal.Title>Dodano zadanie </Modal.Title>
-                    </Modal.Header>
-                </Modal.Dialog>
-                }
+                id="alert_modal">
+                <Modal.Header closeButton>
+                    <Modal.Title>Dodano zadanie </Modal.Title>
+                </Modal.Header>
+            </Modal.Dialog>
+            }
         </>
     )
 }

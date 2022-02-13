@@ -91,6 +91,7 @@ const Todo = () => {
 
                     <Route path="/sendApkFile" element={
                         <>
+                            <Permission></Permission>
                             <Logged></Logged>
                             <Menu who={who}></Menu>
                             <br />
