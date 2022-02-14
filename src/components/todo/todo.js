@@ -20,6 +20,7 @@ const Todo = (props) => {
     const [isUptaded, setIsUptaded] = React.useState(false)
     const [oneTodo, setOneTodo] = React.useState(null)
     const [radioValue, setRadioValue] = React.useState("Wszystko");
+    // let news
 
 
     const [isEditor, setIsEditor] = React.useState(false)
@@ -32,7 +33,7 @@ const Todo = (props) => {
         const newTodo = todos.filter(todo => todo.id !== id)
         setTodos(newTodo)
         axios.put(Url + '/todo/updateDone/' + id)
-        
+
     }
     const todoAdd = async (data) => {
         const newTodo = todos
@@ -50,7 +51,7 @@ const Todo = (props) => {
         setShowEdit(true)
     }
 
-    
+
 
     const updatedTodo = (data) => {
         console.log(data)
@@ -67,16 +68,41 @@ const Todo = (props) => {
             3000
         );
     }
+    const [news, setNews] = React.useState()
 
 
 
-    React.useEffect(() => {
+    const getData = () => {
         axios.get(Url + '/todo/get').then((response) => {
             setTodos(response.data);
         });
+    }
+
+    // setNews((int) => {
+    //     return int
+    // }
+    // )
+
+
+    // const interval = () => {
+    //     setInterval(() => {
+    //         axios.get(Url + '/news/todos').then((response) => {
+    //             // console.log(response.data.todos)
+    //             if (response.data.todos != news) {
+    //                 getData()
+    //                 setNews(response.data.todos)
+    //             }
+    //         });
+    //     }, 10000);
+    // }
+
+
+    React.useEffect(() => {
+        getData()
+        // interval()
 
         // console.log(props.role)
-        if(props.role == 'admin' || props.role =='editor'){
+        if (props.role == 'admin' || props.role == 'editor') {
             setIsEditor(true)
         }
         else if (props.role == null) {
@@ -88,7 +114,7 @@ const Todo = (props) => {
         else {
             setIsEditor(false)
         }
-    },[]);
+    }, []);
 
     return (
         <>

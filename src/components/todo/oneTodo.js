@@ -141,7 +141,7 @@ const Todos = (props) => {
 
                             </Card.Body>
                         </Card>
-                        <br style={null} />
+                        <br style={style} />
                     </>
                 )
             })}
