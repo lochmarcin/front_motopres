@@ -5,10 +5,12 @@ import Url from "../config/url"
 import OneFile from "./oneFile";
 
 
+
 const Apk = () => {
 
     const [selectedFile, setSelectedFile] = React.useState(null)
     const [files, setFiles] = React.useState([])
+    const [progress, setProgress] = React.useState('0');
 
     const sendFile = (e) => {
         e.preventDefault()
@@ -22,10 +24,26 @@ const Apk = () => {
             selectedFile.name
         );
 
-        const config = {
-            onUploadProgress: progressEvent => console.log(progressEvent.loaded)
-        }
-        axios.post(Url + '/upload/addApk', formData, config)
+        // const config = {
+        //     onUploadProgress: progressEvent => console.log(progressEvent.loaded)
+        // }
+
+        
+            axios.post(Url + '/upload/addApk', formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+                onUploadProgress: (data) => {
+                    //Set the progress value to show the progress bar
+                    setProgress(Math.round((100 * data.loaded) / data.total));
+                },
+            })
+
+
+        //         axios.post(Url + '/upload/addApk', formData,
+        //             onUploadProgress(data) => {
+        //     setProgress(Math.round((100 * data.loaded) / data.total));
+        // })
         console.log("WYŚLIJ BUTTON")
     }
 
@@ -43,13 +61,13 @@ const Apk = () => {
             return (
                 <div>
                     <h2>Szczegóły pliku:</h2>
-                    <p>Nazwa: {selectedFile.name}</p>
-                    <p>Typ pliku: {selectedFile.type}</p>
-                    <p>Rozmiar: {Math.round((selectedFile.size / 1000000) * 100) / 100}</p>
-                    <p>
+                    <span>Nazwa: {selectedFile.name}</span><br />
+                    <span>Typ pliku: {selectedFile.type}</span><br />
+                    <span>Rozmiar: {Math.round((selectedFile.size / 1000000) * 100) / 100} MB</span><br />
+                    <span>
                         Ostatnio modyfikowany:{" "}
                         {selectedFile.lastModifiedDate.toDateString()}
-                    </p>
+                    </span>
 
                 </div>
             );
@@ -67,7 +85,7 @@ const Apk = () => {
 
     React.useEffect(() => {
         console.log("useEffect")
-        
+
         axios.get(Url + '/upload/getFiles').then((response) => {
             console.log(response.data);
             setFiles(response.data)
@@ -80,8 +98,8 @@ const Apk = () => {
         <>
             <div id="container">
                 <Form onSubmit={sendFile}>
-                    <Form.Group controlId="formFile" 
-                    className="mb-3"
+                    <Form.Group controlId="formFile"
+                        className="mb-3"
                     >
 
                         <Form.Label>Dodaj plik instalacyjny aplikacji</Form.Label>
@@ -97,11 +115,11 @@ const Apk = () => {
                         <br />
                         <br />
 
-                        <ProgressBar now={now} label={`${now}%`} />
+                        <ProgressBar now={progress} label={`${progress}%`} />
                     </Form.Group>
                 </Form>
 
-            <OneFile files={files}></OneFile>
+                <OneFile files={files}></OneFile>
 
 
             </div>
