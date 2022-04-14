@@ -10,7 +10,8 @@ const Apk = () => {
 
     const [selectedFile, setSelectedFile] = React.useState(null)
     const [files, setFiles] = React.useState([])
-    const [progress, setProgress] = React.useState('0');
+    const [progress, setProgress] = React.useState(0);
+    const [send, setSend] = React.useState(false);
 
     const sendFile = (e) => {
         e.preventDefault()
@@ -23,7 +24,7 @@ const Apk = () => {
             selectedFile,
             selectedFile.name
         );
-
+        setSend(true)
         // const config = {
         //     onUploadProgress: progressEvent => console.log(progressEvent.loaded)
         // }
@@ -49,6 +50,7 @@ const Apk = () => {
 
 
     const changeFile = (e) => {
+        setProgress(0)
         setSelectedFile(e.target.files[0])
         console.log("setSelectedFile")
     }
@@ -93,7 +95,7 @@ const Apk = () => {
 
     }, []);
 
-    const now = 60;
+
     return (
         <>
             <div id="container">
@@ -115,7 +117,7 @@ const Apk = () => {
                         <br />
                         <br />
 
-                        <ProgressBar now={progress} label={`${progress}%`} />
+                        {send && <ProgressBar now={progress} label={`${progress}%`} />}
                     </Form.Group>
                 </Form>
 
