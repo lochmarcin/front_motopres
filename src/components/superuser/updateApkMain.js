@@ -39,6 +39,13 @@ const Apk = () => {
                     setProgress(Math.round((100 * data.loaded) / data.total));
                 },
             })
+            .then(function (response) {
+                console.log(response.data)
+                setProgress(response.data)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
 
         //         axios.post(Url + '/upload/addApk', formData,
@@ -117,7 +124,7 @@ const Apk = () => {
                         <br />
                         <br />
 
-                        {send && <ProgressBar now={progress} label={`${progress}%`} />}
+                        {send && <ProgressBar now={progress} label={`${progress} %`} />}
                     </Form.Group>
                 </Form>
 
