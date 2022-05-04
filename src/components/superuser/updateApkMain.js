@@ -35,13 +35,14 @@ const Apk = () => {
                     "Content-Type": "multipart/form-data",
                 },
                 onUploadProgress: (data) => {
+                    
                     //Set the progress value to show the progress bar
                     setProgress(Math.round((100 * data.loaded) / data.total));
                 },
             })
             .then(function (response) {
-                console.log(response.data)
-                setProgress(response.data)
+                console.log(response.data.sendStatus)
+                setProgress(response.data.sendStatus)
             })
             .catch(function (error) {
                 console.log(error);
