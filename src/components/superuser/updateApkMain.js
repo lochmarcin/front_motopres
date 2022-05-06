@@ -1,8 +1,9 @@
 import React from "react";
 import axios from "axios";
-import { Form, Button, ProgressBar } from "react-bootstrap";
+import { Form, Button, ProgressBar, Table } from "react-bootstrap";
 import Url from "../config/url"
 import OneFile from "./oneFile";
+import "./file.css"
 
 
 
@@ -29,17 +30,17 @@ const Apk = () => {
         //     onUploadProgress: progressEvent => console.log(progressEvent.loaded)
         // }
 
-        
-            axios.post(Url + '/upload/addApk', formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-                onUploadProgress: (data) => {
-                    
-                    //Set the progress value to show the progress bar
-                    setProgress(Math.round((100 * data.loaded) / data.total));
-                },
-            })
+
+        axios.post(Url + '/upload/addApk', formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+            onUploadProgress: (data) => {
+
+                //Set the progress value to show the progress bar
+                setProgress(Math.round((100 * data.loaded) / data.total));
+            },
+        })
             .then(function (response) {
                 console.log(response.data.sendStatus)
                 setProgress(response.data.sendStatus)
@@ -129,9 +130,27 @@ const Apk = () => {
                     </Form.Group>
                 </Form>
 
-                <OneFile files={files}></OneFile>
 
+                <div id="container">
+                    <br />
+                    <h5>Przesłane pliki: </h5>
+                    <Table>
+                        <tboby>
+                            <tr>
+                                <th>Aktualne</th>
+                                <th>Wersja</th>
+                                <th>Link</th>
+                                <th>Data przesłania</th>
+                            </tr>
 
+                            <OneFile files={files}></OneFile>
+                        </tboby>
+                    </Table>
+                    
+                    <Button variant="primary" type="submit">
+                            Aktualizuj
+                    </Button>
+                </div>
             </div>
         </>
     )
