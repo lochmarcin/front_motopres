@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Row, Col, Button, Form } from "react-bootstrap";
+import { ReactComponent as Download } from './../../svg/download.svg';
 import "./file.css"
 
 
@@ -37,6 +38,8 @@ const OneFile = (props) => {
                         </td>
                         <td>
                             {file.url}
+                           
+                            <a href="#"><Download id='downloadSvg'/></a>
                         </td>
                         <td>
                             {file.createdAt}

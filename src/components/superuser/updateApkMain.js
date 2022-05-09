@@ -64,6 +64,12 @@ const Apk = () => {
         console.log("setSelectedFile")
     }
 
+
+    const updateActualFile = (id) => {
+        console.log("Update Actual File: " + id)
+    }
+
+
     const fileData = () => {
         console.log("fileData")
         console.log(selectedFile)
@@ -135,19 +141,20 @@ const Apk = () => {
                     <br />
                     <h5>Przesłane pliki: </h5>
                     <Table>
-                        <tboby>
+                        <thead>
                             <tr>
                                 <th>Aktualne</th>
                                 <th>Wersja</th>
                                 <th>Link</th>
                                 <th>Data przesłania</th>
                             </tr>
-
+                        </thead>
+                        <tbody>
                             <OneFile files={files}></OneFile>
-                        </tboby>
+                        </tbody>
                     </Table>
                     
-                    <Button variant="primary" type="submit">
+                    <Button variant="primary" onClick={updateActualFile(selectedFile)}>
                             Aktualizuj
                     </Button>
                 </div>
