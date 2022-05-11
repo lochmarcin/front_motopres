@@ -62,3 +62,14 @@
 #modal_edit_set_time{
   max-width: 150px;
 }
+#footer{
+  margin-top: 40px;
+}
+#footer-p{
+  padding: 10px;
+  margin-bottom: 0;
+}
+#footer-a{
+  text-decoration: none;
+  color: rgb(190, 190, 190);
+}

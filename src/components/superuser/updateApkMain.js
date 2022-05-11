@@ -4,6 +4,8 @@ import { Form, Button, ProgressBar, Table } from "react-bootstrap";
 import Url from "../config/url"
 import OneFile from "./oneFile";
 import "./file.css"
+import Footer from "../todo/footer";
+import { saveAs } from "file-saver";
 
 
 
@@ -58,6 +60,15 @@ const Apk = () => {
     }
 
 
+    const downloadFile = (id) => {
+        console.log("Download File: " + id)
+
+        saveAs(
+            `http://127.0.0.1:8000/upload/download/22`,
+            "test.jpg"
+        );
+
+    }
     const changeFile = (e) => {
         setProgress(0)
         setSelectedFile(e.target.files[0])
@@ -150,15 +161,16 @@ const Apk = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <OneFile files={files}></OneFile>
+                            <OneFile downloadFile={downloadFile} files={files}></OneFile>
                         </tbody>
                     </Table>
-                    
-                    <Button variant="primary" onClick={updateActualFile(selectedFile)}>
-                            Aktualizuj
+
+                    <Button variant="primary" onClick={() => updateActualFile(selectedFile)}>
+                        Aktualizuj
                     </Button>
                 </div>
             </div>
+            <Footer />
         </>
     )
 }

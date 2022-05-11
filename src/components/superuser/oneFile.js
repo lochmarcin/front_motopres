@@ -39,7 +39,7 @@ const OneFile = (props) => {
                         <td>
                             {file.url}
                            
-                            <a href="#"><Download id='downloadSvg'/></a>
+                            <Download id='downloadSvg' onClick={() => props.downloadFile(file.id)}/>
                         </td>
                         <td>
                             {file.createdAt}
