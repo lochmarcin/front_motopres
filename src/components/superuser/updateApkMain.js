@@ -46,6 +46,8 @@ const Apk = () => {
             .then(function (response) {
                 console.log(response.data.sendStatus)
                 setProgress(response.data.sendStatus)
+                if(response.data.sendStatus)
+                    setTimeout(reloadPage, 3000)
             })
             .catch(function (error) {
                 console.log(error);
@@ -59,15 +61,18 @@ const Apk = () => {
         console.log("WYŚLIJ BUTTON")
     }
 
+    const reloadPage = () =>{
+        window.location.reload(false)
+    }
 
     const downloadFile = (id) => {
         console.log("Download File: " + id)
 
         saveAs(
-            `http://127.0.0.1:8000/upload/download/22`,
+            `http://127.0.0.1:8000/upload/download/${id}`,
             "test.jpg"
         );
-
+        
     }
     const changeFile = (e) => {
         setProgress(0)
