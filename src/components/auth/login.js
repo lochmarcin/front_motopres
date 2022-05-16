@@ -68,7 +68,7 @@ const Login = (props) => {
         // e.preventDefault()
         try {
             console.log("Pobierz")
-            FileSaver.saveAs(`${Url}/upload/download`, "app-release.apk");
+            FileSaver.saveAs(`${Url}/upload/downloadMain`, "Motopres");
         } catch (err) {
             console.log(err)
         }

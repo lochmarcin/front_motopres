@@ -7,7 +7,7 @@ import "./file.css"
 
 const OneFile = (props) => {
 
-    const [actualFile, setActualFile] = React.useState(false)
+    
 
     console.log(props.files)
     let dataFiles = Array.from(props.files)
@@ -17,20 +17,24 @@ const OneFile = (props) => {
     return (
         <>
             {dataFiles.map((file) => {
-
+                if(file.actual)
+                    props.setActualFile(file.id)
+                console.log(props.actualFile)
                 return (
 
                     <tr>
                         <td>
                             <Form.Check
-                                name="group1"
                                 type="radio"
-                                onClick={() => {
-                                    console.log("change radios: " + file.id)
-                                    file.actual = file.actual
-                                }}
-                                // checked={file.actual}
-                                id="chuj"
+                                name="wersja"
+                                value={file.actual}
+                                // onClick={() => {
+                                //     console.log("change radios: " + file.id)
+                                //     file.actual = file.actual
+                                // }}
+                                checked={props.actualFile === file.id}
+                                onChange={() => {props.onSiteChanged(file.id)}}
+                                // id="chuj"
                             />
                         </td>
                         <td>

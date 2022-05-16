@@ -16,6 +16,8 @@ const Apk = () => {
     const [progress, setProgress] = React.useState(0);
     const [send, setSend] = React.useState(false);
 
+    const [actualFile, setActualFile] = React.useState(false)
+
     const sendFile = (e) => {
         e.preventDefault()
 
@@ -69,11 +71,25 @@ const Apk = () => {
         console.log("Download File: " + id)
 
         saveAs(
-            `http://127.0.0.1:8000/upload/download/${id}`,
-            "test.jpg"
+            `http://127.0.0.1:8000/upload/download/${id}`
         );
         
     }
+
+    const onSiteChanged = async (id) =>{
+        console.log("onSiteChanged: " + id)
+        await axios.put(Url + '/upload/updateActualFile/' + id).then((response) => {
+            console.log(response.data);
+            if(response.data){
+                axios.get(Url + '/upload/getFiles').then((response) => {
+                    console.log(response.data);
+                    setFiles(response.data)
+                });
+            }
+            // setFiles(response.data)
+        });
+    }
+
     const changeFile = (e) => {
         setProgress(0)
         setSelectedFile(e.target.files[0])
@@ -166,7 +182,7 @@ const Apk = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <OneFile downloadFile={downloadFile} files={files}></OneFile>
+                            <OneFile downloadFile={downloadFile} files={files} onSiteChanged={onSiteChanged} actualFile={actualFile} setActualFile={setActualFile}></OneFile>
                         </tbody>
                     </Table>
 
