@@ -34,7 +34,7 @@ const OneFile = (props) => {
                                 // }}
                                 checked={props.actualFile === file.id}
                                 onChange={() => {props.onSiteChanged(file.id)}}
-                                // id="chuj"
+                                
                             />
                         </td>
                         <td>
