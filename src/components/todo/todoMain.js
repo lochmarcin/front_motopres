@@ -49,7 +49,10 @@ const Todo = () => {
                     }>
                     </Route>
                     <Route path="/login" element={
-                        <Login userWho={userWho} userRole={userRole}></Login>
+                        <>
+                            <Slash></Slash>
+                            <Login userWho={userWho} userRole={userRole}></Login>
+                        </>
                     }>
                     </Route>
                     <Route path="/todo" element={

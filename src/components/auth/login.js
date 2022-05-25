@@ -64,6 +64,13 @@ const Login = (props) => {
 
     }
 
+    // const checkUser = () => {
+    //     axios.get(Url + '/auth/login', {
+    //         username: login,
+    //         password: password,
+    //     },
+    // }
+
     const download = async () => {
         // e.preventDefault()
         try {
@@ -81,7 +88,7 @@ const Login = (props) => {
                 <Row>
                     <Col className="col_logo">
                         <div id="container">
-                            <img src={logo} className="mx-auto img-fluid" id="logo_black" />
+                            <img src={logo} className="mx-auto img-fluid" id="logo_black" alt="Logo Motopres"/>
                         </div>
                     </Col>
                 </Row>
