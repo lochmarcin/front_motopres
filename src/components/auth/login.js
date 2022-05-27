@@ -30,13 +30,13 @@ const Login = (props) => {
     const authorization = (e) => {
         e.preventDefault()
 
-        if(isMobile) {
+        if (isMobile) {
             return (
                 <div> Aby móc korzystać na telefonie pobierz aplikację poniżej</div>
             )
         }
         return (
-            
+
             axios.post(Url + '/auth/login', {
                 username: login,
                 password: password,
@@ -47,12 +47,13 @@ const Login = (props) => {
                         console.log(response.data);
                     }
                     else {
-                        setloginError(false)
+                        // setloginError(false)
                         // console.log(response.data.token);
                         // console.log(response.data);
                         props.userWho(response.data.firstname)
                         props.userRole(response.data)
-                        navigate('/todo')
+                        // navigate('/todo')
+                        checkUser()
                     }
                     setAuth(response.data.token)
                 })
@@ -64,12 +65,19 @@ const Login = (props) => {
 
     }
 
-    // const checkUser = () => {
-    //     axios.get(Url + '/auth/login', {
-    //         username: login,
-    //         password: password,
-    //     },
-    // }
+    const checkUser = () => {
+        axios.get(Url + '/auth/me')
+            .then((response) => {
+                if (response.data.logged === false) {
+                    setloginError(true)
+                    console.log(response.data.msg);
+                }
+                if(response.data.logged === true){
+                    navigate('/todo')
+                    setloginError(false)                    
+                }
+            })
+    }
 
     const download = async () => {
         // e.preventDefault()
@@ -88,7 +96,7 @@ const Login = (props) => {
                 <Row>
                     <Col className="col_logo">
                         <div id="container">
-                            <img src={logo} className="mx-auto img-fluid" id="logo_black" alt="Logo Motopres"/>
+                            <img src={logo} className="mx-auto img-fluid" id="logo_black" alt="Logo Motopres" />
                         </div>
                     </Col>
                 </Row>

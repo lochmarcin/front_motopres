@@ -11,6 +11,7 @@ import Logout from "../auth/logout";
 import MainUser from "../user/userMain";
 import axios from 'axios'
 import Auth from '../auth/whoRoleUser'
+import NewLogged from "../config/Logged"
 import Slash from './fromSlash'
 import Logged from "../config/isLogged"
 import Permission from "../config/isPermission"
@@ -58,11 +59,14 @@ const Todo = () => {
                     <Route path="/todo" element={
                         <>
                             <BrowserView>
-                                <Logged></Logged>
-                                <Menu role={role} who={who}></Menu>
-                                <br />
-                                <br />
-                                <TodoAll role={role}></TodoAll>
+                                {/* <Logged></Logged> */}
+                                {NewLogged && <>
+                                    <Menu role={role} who={who}></Menu>
+                                    <br />
+                                    <br />
+                                    <TodoAll role={role}></TodoAll>
+                                </>
+                                }
                             </BrowserView>
                             <MobileView>
                                 <p>MOBILE VIEW</p>
