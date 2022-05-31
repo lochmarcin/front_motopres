@@ -18,10 +18,15 @@ const Logout = (props) =>{
         .then((response) => {
             props.userRole(setLogoutRole)
             props.userWho("")
-            navigate('/login')
+            console.log(response.data.logged)
+            console.log(response.data.message)
+
+            if(response.data.logged === false) {
+
+                navigate('/login')
+            }
         });
     }, []);
-
 
     return(null)
 }

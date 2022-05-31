@@ -16,14 +16,16 @@ import Slash from './fromSlash'
 import Logged from "../config/isLogged"
 import Permission from "../config/isPermission"
 import ApkMain from "../superuser/updateApkMain"
+import ToLogin from "./toLogin";
 import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom"
 
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
 
 
-
 const Todo = () => {
+    const navigate = useNavigate()
+
     const [role, setRole] = React.useState(null)
     const [who, setWho] = React.useState(null)
 
@@ -41,87 +43,116 @@ const Todo = () => {
         setWho(data)
     }
 
+
     return (
         <>
-            <Router>
-                <Routes>
-                    <Route path="/" element={
-                        <Slash></Slash>
-                    }>
-                    </Route>
-                    <Route path="/login" element={
-                        <>
-                            <Slash></Slash>
-                            <Login userWho={userWho} userRole={userRole}></Login>
-                        </>
-                    }>
-                    </Route>
-                    <Route path="/todo" element={
-                        <>
-                            <BrowserView>
-                                {/* <Logged></Logged> */}
-                                {NewLogged && <>
+
+            <Routes>
+                <Route path="/" element={
+                    <Slash></Slash>
+                }>
+                </Route>
+                <Route path="/login" element={
+                    <>
+                        <Slash />
+                        <Login userWho={userWho} userRole={userRole}></Login>
+                    </>
+                }>
+                </Route>
+                <Route path="/todo" element={
+                    <>
+                        <BrowserView>
+                            {/* <Logged></Logged> */}
+                            {/* {NewLogged} */}
+                            {/* {NewLogged() === true ?
+                                <>
                                     <Menu role={role} who={who}></Menu>
                                     <br />
                                     <br />
                                     <TodoAll role={role}></TodoAll>
                                 </>
-                                }
-                            </BrowserView>
-                            <MobileView>
-                                <p>MOBILE VIEW</p>
-                            </MobileView>
-                        </>
-                    }>
-                    </Route>
-                    <Route path="/users" element={
-                        <>
-                            <Permission></Permission>
-                            <Logged></Logged>
-                            <Menu who={who}></Menu>
-                            <br />
-                            <br />
-                            <MainUser></MainUser>
-                        </>
-                    }>
-                    </Route>
-                    <Route path="/doneTodo" element={
-                        <>
-                            <Logged></Logged>
-                            <Menu who={who}></Menu>
-                            <br />
-                            <br />
-                            <Donetodo></Donetodo>
-                        </>
-                    }>
-                    </Route>
+                                : <ToLogin />
+                            } */}
+                            {NewLogged && <>
+                                <Menu role={role} who={who}></Menu>
+                                <br />
+                                <br />
+                                <TodoAll role={role}></TodoAll>
+                            </>}
 
-                    <Route path="/sendApkFile" element={
-                        <>
-                            {/* <Permission></Permission> */}
-                            {/* <Logged></Logged> */}
-                            <Menu who={who}></Menu>
-                            <br />
-                            <br />
-                            <ApkMain></ApkMain>
-                        </>
-                    }>
-                    </Route>
+                        </BrowserView>
+                        <MobileView>
+                            <p>MOBILE VIEW</p>
+                        </MobileView>
+                    </>
+                }>
+                </Route>
+                <Route path="/users" element={
+                    <>
+                        {NewLogged &&
+                            <>
+                                <Permission></Permission>
+                                {/* <Logged></Logged> */}
+                                <Menu who={who}></Menu>
+                                <br />
+                                <br />
+                                <MainUser></MainUser>
+                            </>
+                        }
+                        {/* <ToLogin /> */}
+                    </>
+                }>
+                </Route>
+                <Route path="/doneTodo" element={
+                    <>
+                        {/* <Logged></Logged> */}
+                        {NewLogged &&
+                            <><Menu who={who}></Menu>
+                                <br />
+                                <br />
+                                <Donetodo></Donetodo>
+                            </>
+                        }
+                        {/* <ToLogin /> */}
+                    </>
+                }>
+                </Route>
 
-                    <Route path="/me" element={
-                        <>
-                            <Auth></Auth>
-                        </>
+                {/* <Route path="/test" element={
+                             NewLogged()
                     }>
-                    </Route>
+                    </Route> */}
+
+                <Route path="/sendApkFile" element={
+                    <>
+                        <Permission></Permission>
+                        {NewLogged &&
+                            <>
+                                <Menu who={who}></Menu>
+                                <br />
+                                <br />
+                                <ApkMain></ApkMain>
+                            </>
+                        }
+                        <ToLogin />
+                    </>
+                }>
+                </Route>
+
+                <Route path="/me" element={
+                    <>
+                        <Auth></Auth>
+                    </>
+                }>
+                </Route>
 
 
-                    <Route path="/logout" element={
-                        <Logout userWho={userWho} userRole={userRole}></Logout>
-                    }>
-                    </Route>
-                </Routes>
-            </Router>
+                <Route path="/logout" element={
+                    <Logout userWho={userWho} userRole={userRole}></Logout>
+                }>
+                </Route>
+            </Routes>
+
         </>
     )
 }

@@ -12,10 +12,12 @@ const Logged = () => {
         axios.get(Url + '/auth/me').then((response) => {
             // setTodos(response.data);
             console.log(response.data)
-            if (response.data.logged == true) {
+            if (response.data.logged === true) {
+                console.log("(:From slash logged==" + response.data.logged)
                 navigate('/todo')
             }
-            else if (response.data.logged == false) {
+            else if (response.data.logged === false) {
+                console.log(":((( From slash logged==" + response.data.logged)
                 navigate('/login')
             }
         });
