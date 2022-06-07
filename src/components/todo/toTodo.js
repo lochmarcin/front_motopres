@@ -7,8 +7,7 @@ const ToLogin = () => {
 
     
     React.useEffect(() => {
-        navigate('/login')
-        
+        navigate('/todo')
     }, []);
 }
 export default ToLogin
