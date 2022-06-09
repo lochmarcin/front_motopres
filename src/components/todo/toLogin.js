@@ -8,7 +8,6 @@ const ToLogin = () => {
     
     React.useEffect(() => {
         navigate('/login')
-        
     }, []);
 }
 export default ToLogin

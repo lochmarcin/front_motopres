@@ -5,6 +5,8 @@ import { Link, NavLink } from "react-router-dom";
 import { Navbar, Container, Nav } from 'react-bootstrap'
 import axios from "axios";
 import Url from "../config/url"
+import "./todoMain.css"
+
 
 
 const Menu = (props) => {
@@ -53,7 +55,7 @@ const Menu = (props) => {
                         </Nav>
                         <Nav>
                             <Navbar.Text>
-                                Zalogowany: {who}
+                                Zalogowany: <a href="/editMe" id="ahrefEditMe">{who}</a>
                             </Navbar.Text>
                             <Nav.Link href="/logout" className="justify-content-end">Wyloguj</Nav.Link>
                         </Nav>

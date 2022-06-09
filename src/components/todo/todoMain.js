@@ -14,7 +14,8 @@ import Auth from '../auth/whoRoleUser'
 import NewLogged from "../config/Logged"
 import Slash from './fromSlash'
 import Url from "../config/url"
-import toTodo from "../todo/toTodo"
+import EditUser from "../editUser/editUserMain"
+
 
 // import Logged from "../config/isLogged"
 import Permission from "../config/isPermission"
@@ -33,7 +34,7 @@ const Todo = () => {
     const [role, setRole] = React.useState(null)
     const [who, setWho] = React.useState(null)
     const [logged, setLogged] = React.useState(false)
-    
+
 
     const userRole = (data) => {
         console.log(data)
@@ -78,7 +79,7 @@ const Todo = () => {
                 // props.setLogged(false)
                 setLogged(false)
             }
-            else if (response.data.logged === true){
+            else if (response.data.logged === true) {
                 console.log("Logged - response.data.logged: " + response.data.logged)
                 // props.setLogged(true)
                 setLogged(true)
@@ -96,7 +97,7 @@ const Todo = () => {
                 <Route path="/test" element={
                     <>
                         <p>TEST</p>
-                        {logged === true ? <p>super</p> : <p>chujowo</p> }
+                        {logged === true ? <p>super</p> : <p>chujowo</p>}
 
                     </>
                 }>
@@ -108,8 +109,10 @@ const Todo = () => {
                 </Route>
                 <Route path="/login" element={
                     <>
-                        {test}
-                        {logged === true ? navigate('/todo') : <Login userWho={userWho} userRole={userRole}/> }
+                        {/* {test} */}
+                        {/* {logged === true ? navigate('/todo') : <Login userWho={userWho} userRole={userRole} />} */}
+                        <Slash />
+                        <Login userWho={userWho} userRole={userRole}></Login>
 
                     </>
                 }>
@@ -117,27 +120,10 @@ const Todo = () => {
                 <Route path="/todo" element={
                     <>
                         <BrowserView>
-                            {/* <Logged></Logged> */}
-                            {/* {NewLogged} */}
-                            {/* {NewLogged() === true ?
-                                <>
-                                    <Menu role={role} who={who}></Menu>
-                                    <br />
-                                    <br />
-                                    <TodoAll role={role}></TodoAll>
-                                </>
-                                : <ToLogin />
-                            } */}
-                            {NewLogged &&
-                                <>
-                                    <Menu role={role} who={who}></Menu>
-                                    <br />
-                                    <br />
-                                    <TodoAll role={role}></TodoAll>
-                                </>
-                                // : <ToLogin/>
-                            }
-
+                            <Menu role={role} who={who}></Menu>
+                            <br />
+                            <br />
+                            <TodoAll role={role}></TodoAll>
                         </BrowserView>
                         <MobileView>
                             <p>MOBILE VIEW</p>
@@ -147,30 +133,35 @@ const Todo = () => {
                 </Route>
                 <Route path="/users" element={
                     <>
-                        {NewLogged === true ?
-                            <>
-                                <Permission></Permission>
-                                {/* <Logged></Logged> */}
-                                <Menu who={who}></Menu>
-                                <br />
-                                <br />
-                                <MainUser></MainUser>
-                            </>
-                            : <ToLogin />
-                        }
+                        <Permission></Permission>
+                        {/* <Logged></Logged> */}
+                        <Menu who={who}></Menu>
+                        <br />
+                        <br />
+                        <MainUser></MainUser>
+                    </>
+                }>
+                </Route>
+                <Route path="/editMe" element={
+                    <>
+                        {/* <Permission></Permission> */}
+                        {/* <Logged></Logged> */}
+                        <Menu who={who}></Menu>
+                        <br />
+                        <br />
+                        <EditUser/>
                     </>
                 }>
                 </Route>
                 <Route path="/doneTodo" element={
                     <>
-                        {NewLogged === true ?
-                            <><Menu who={who}></Menu>
-                                <br />
-                                <br />
-                                <Donetodo></Donetodo>
-                            </>
-                            : <ToLogin />
-                        }
+
+                        <Permission></Permission>
+                        {/* <Logged></Logged> */}
+                        <Menu who={who}></Menu>
+                        <br />
+                        <br />
+                        <Donetodo />
                     </>
                 }>
                 </Route>
@@ -180,16 +171,12 @@ const Todo = () => {
                 <Route path="/sendApkFile" element={
                     <>
                         <Permission />
-                        {NewLogged === true ?
-                            <>
-                                <Menu who={who}></Menu>
-                                <br />
-                                <br />
-                                <ApkMain></ApkMain>
-                            </>
-                            : <ToLogin />
 
-                        }
+                        <Menu who={who}></Menu>
+                        <br />
+                        <br />
+                        <ApkMain />
+
                     </>
                 }>
                 </Route>

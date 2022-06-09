@@ -1,0 +1,18 @@
+#container{
+    margin: auto;
+    max-width: 1000px;
+    display: flex;
+}
+#twojeDane{
+    
+}
+#mainInfoUserTable{
+    margin-bottom: 0;
+}
+#SubmitEdit{
+    display: flex;
+    justify-content: flex-end;
+}
+#aktualizuj_Button{
+    margin-top: 10px;
+}
