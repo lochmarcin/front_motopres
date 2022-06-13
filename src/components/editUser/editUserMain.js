@@ -69,7 +69,7 @@ const EditUser = () => {
 
     return (
         <div id="container">
-            <Accordion>
+            <Accordion id="accordion">
                 <Accordion.Item eventKey="0">
                     <Accordion.Header>Twoje dane: </Accordion.Header>
                     <Accordion.Body>

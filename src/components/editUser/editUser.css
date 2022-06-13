@@ -17,3 +17,6 @@
 td{
     padding: 5px;
 }
+#accordion{
+    min-width: 500px;
+}
