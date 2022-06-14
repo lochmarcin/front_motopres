@@ -10,9 +10,11 @@ const ChangePass = (props) => {
     const [oldPassword, setOldpassword] = React.useState(null);
     const [firstNewPass, setFirstNewPass] = React.useState(null);
     const [secondNewPass, setSecondNewPass] = React.useState(null);
+
     const [showModal, setShowModal] = React.useState(false)
     const [errorChangePass, setErrorChangePass] = React.useState(null);
     const [errorOldPass, setErrorOldPass] = React.useState(null);
+
 
 
 
@@ -24,6 +26,14 @@ const ChangePass = (props) => {
         );
     }
 
+    // Clear Form 
+    const [clear, setClear] = React.useState(false);
+    const clearForm = () => {
+        setOldpassword('')
+        setFirstNewPass('')
+        setSecondNewPass('')
+    }
+
     const checkpassword = (e) => {
         e.preventDefault()
 
@@ -33,13 +43,25 @@ const ChangePass = (props) => {
             setErrorOldPass(true)
         else {
             try {
-                axios.put(Url + '/users/changePassword/:id' + props.userId,{
+                axios.put(Url + '/users/changePassword/' + props.userId, {
                     oldPassword: oldPassword,
                     firstNewPass: firstNewPass,
                     secondNewPass: secondNewPass
                 })
                     .then((response) => {
                         console.log(response.data)
+
+                        if (response.data.changedPass) {
+                            setErrorChangePass(false)
+                            setErrorOldPass(false)
+                            updatedAlert()
+                            clearForm()
+                        }
+                        else if (response.data.wrongOldPassword) {
+                            setErrorChangePass(false)
+                            setErrorOldPass(true)
+                            clearForm()
+                        }
                     });
 
 
@@ -57,6 +79,7 @@ const ChangePass = (props) => {
     return (
         <>
             <Form
+                id="changePassword"
                 onSubmit={checkpassword}
             >
                 <Table id="mainInfoUserTable" striped bordered hover>
@@ -64,6 +87,7 @@ const ChangePass = (props) => {
                         <td>Wpisz stare hasło:</td>
                         <td><Form.Control
                             placeholder="Stare hasło:"
+                            value={oldPassword || ""}
                             onChange={(e) => setOldpassword(e.target.value)}
                         /></td>
 
@@ -72,6 +96,7 @@ const ChangePass = (props) => {
                         <td>Nowe hasło:</td>
                         <td><Form.Control
                             placeholder="Nowe hasło:"
+                            value={firstNewPass || ""}
                             onChange={(e) => setFirstNewPass(e.target.value)}
                         /></td>
                     </tr>
@@ -79,6 +104,7 @@ const ChangePass = (props) => {
                         <td>Ponownie nowe hasło:</td>
                         <td><Form.Control
                             placeholder="Ponownie nowe hasło:"
+                            value={secondNewPass || ""}
                             onChange={(e) => setSecondNewPass(e.target.value)}
                         /></td>
                     </tr>
@@ -88,6 +114,9 @@ const ChangePass = (props) => {
 
                 <br />
                 <div id="SubmitEdit">
+
+
+
                     <Button
                         id="aktualizuj_Button"
                         variant="primary"
