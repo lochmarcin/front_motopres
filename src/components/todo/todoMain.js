@@ -187,6 +187,15 @@ const Todo = () => {
                     </>
                 }>
                 </Route>
+                <Route path="/editMe/logs" element={
+                    <>
+                        <Menu who={who}></Menu>
+                        <br />
+                        <br />
+                        <p>jesteś w logach</p>
+                    </>
+                }>
+                </Route>
 
 
                 <Route path="/logout" element={

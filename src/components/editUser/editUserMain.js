@@ -1,10 +1,14 @@
 import React from "react";
 import "./editUser.css"
 import { Table, Form, Button, Accordion } from "react-bootstrap"
+import { useNavigate } from "react-router-dom"
+
 import axios from "axios";
 import Url from "../config/url";
 import EditMainInfo from "./EditMainInfo";
 import ChangePass from "./changePassword"
+import Logi from "./logs"
+
 
 
 
@@ -43,6 +47,7 @@ const EditUser = () => {
 
     React.useEffect(() => {
 
+
         // const gettata = async () =>{
         //     try {
         //         await getInfoAboutUser()
@@ -64,7 +69,7 @@ const EditUser = () => {
         //     console.log("ID user from use Effect: " + response)
         // })
 
-    }, []);
+    });
 
 
     return (
@@ -78,13 +83,19 @@ const EditUser = () => {
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="1">
-                <Accordion.Header>Zmiana Hasła</Accordion.Header>
+                    <Accordion.Header>Zmiana Hasła</Accordion.Header>
                     <Accordion.Body>
-                        {userId && <ChangePass userId={userId}></ChangePass>}
+                        {userId && <ChangePass userId={userId} />}
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="2">
+                    <Accordion.Header>Logi</Accordion.Header>
+                    <Accordion.Body>
+                        {userId && <Logi userId={userId} />}
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-        </div>
+        </div >
 
     )
 }

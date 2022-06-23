@@ -8,13 +8,32 @@ import { propTypes } from "react-bootstrap/esm/Image";
 const EditMainInfo = (props) => {
 
     const [userMainInfo, setUserMainInfo] = React.useState(null);
+    const [firstname, setFirstname] = React.useState('')
+    const [lastname, setLastName] = React.useState('')
+    const [username, setUserName] = React.useState('')
 
 
-    const editUser = () => {
-        console.log("SEnd Edit user")
+
+    const editUser = async () => {
+        console.log("Send Edit user")
+
+        try {
+            await axios.put(Url + '/updateMe/' + props.userId,{
+                firstname: firstname === '' ? userMainInfo.firstname : firstname, 
+                lastname: lastname === '' ? userMainInfo.lastname : lastname,
+                username: username === '' ? userMainInfo.username : username
+            }).then((response) => {
+                setUserMainInfo(response.data)
+                console.log("response /updateMe/ + props.userId")
+                console.log(response.data)
+            });
+        } catch (err) {
+            console.log("Error: from editUserMain, get /users/getOne/ " + err)
+        }
+    
     }
 
-    React.useEffect(()=>{
+    React.useEffect(() => {
         console.log(props)
         const getInfoAboutUser = async () => {
 
@@ -29,7 +48,7 @@ const EditMainInfo = (props) => {
             }
         }
         getInfoAboutUser()
-    },[])
+    }, [])
 
 
     return (
@@ -43,16 +62,22 @@ const EditMainInfo = (props) => {
                 <Table id="mainInfoUserTable" striped bordered hover>
                     <tr>
                         <td>Imie</td>
-                        {userMainInfo && <td><Form.Control placeholder={userMainInfo.firstname} /></td>}
+                        {userMainInfo && <td><Form.Control
+                            placeholder={userMainInfo.firstname} 
+                            onChange={(e) => setFirstname(e.target.value)}/></td>}
 
                     </tr>
                     <tr>
                         <td>Nazwisko</td>
-                        {userMainInfo && <td><Form.Control placeholder={userMainInfo.lastname} /></td>}
+                        {userMainInfo && <td><Form.Control
+                            placeholder={userMainInfo.lastname}
+                            onChange={(e) => setLastName(e.target.value)} /></td>}
                     </tr>
                     <tr>
                         <td>Login:</td>
-                        {userMainInfo && <td><Form.Control placeholder={userMainInfo.username} /></td>}
+                        {userMainInfo && <td><Form.Control
+                            placeholder={userMainInfo.username} 
+                            onChange={(e) => setUserName(e.target.value)}/></td>}
                     </tr>
 
                 </Table>
