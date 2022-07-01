@@ -1,7 +1,10 @@
 import React from "react";
 import "./todoMain.css"
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { Link } from "react-router-dom";
 import { Card, Button, Container, Col, Row, Modal, Form, ButtonGroup, ToggleButton } from "react-bootstrap"
+// import Info from "./../../svg/"
+import { ReactComponent as Info } from './../../svg/info-svgrepo-com.svg';
 
 const Todos = (props) => {
 
@@ -127,6 +130,7 @@ const Todos = (props) => {
                                             onClick={() => props.todoDone(todo.id)}>
                                             Wykonane
                                         </Button>
+
                                         <Button
                                             id="button_todo_delete"
                                             variant="warning"
@@ -135,6 +139,9 @@ const Todos = (props) => {
                                         >
                                             Edytuj
                                         </Button>
+                                        <Link to={`/OneTodoDetails?id=${todo.id}`}>
+                                            <Info id="infoSvg" />
+                                        </Link>
 
                                     </Col>
                                 </Row>

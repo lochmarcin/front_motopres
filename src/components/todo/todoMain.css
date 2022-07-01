@@ -77,3 +77,10 @@
 #ahrefEditMe{
   text-decoration: none;
 }
+#infoSvg{
+  cursor: pointer;
+  margin-right: 20px;
+  margin-top: 5px;
+  height: 1.5rem;
+  width: 1.5rem;
+}

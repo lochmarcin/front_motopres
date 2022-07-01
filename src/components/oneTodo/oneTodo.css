@@ -1,0 +1,67 @@
+#container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #span_whoadd {
+    color: darkgray;
+  }
+  
+  #card_one_todo {
+    width: 100%;
+    max-width: 1000px;
+  }
+
+  #price{
+      margin-right: 40px;
+  }
+  #button_todo_delete{
+    margin-right: 20px;
+  }
+  #radio_morning{
+    margin-top: 1rem;
+  }
+  #label_deposit{
+    margin-top: 1.5rem;
+    display: flex;
+  }
+  #label_deposit_second{
+    display: flex;
+  }
+  .ion-icon {
+    font-size: 20px;
+  }
+  /* #filter_buttons{
+    margin-bottom: 30px;
+  } */
+  /* #modal_edit_set_time{
+    max-width: 150px;
+  } */
+  #footer{
+    margin-top: 40px;
+  }
+  #footer-p{
+    padding: 10px;
+    margin-bottom: 0;
+  }
+  #footer-a{
+    text-decoration: none;
+    color: rgb(190, 190, 190);
+  }
+  
+  #ahrefEditMe{
+    text-decoration: none;
+  }
+  #infoSvg{
+    cursor: pointer;
+    margin-right: 20px;
+    margin-top: 5px;
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+  #qrcode{
+    width: 200px;
+    height: auto;
+  }

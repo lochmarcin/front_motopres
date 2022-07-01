@@ -15,13 +15,14 @@ import NewLogged from "../config/Logged"
 import Slash from './fromSlash'
 import Url from "../config/url"
 import EditUser from "../editUser/editUserMain"
+import OneTodo from "../oneTodo/oneTodoMain"
 
 
 // import Logged from "../config/isLogged"
 import Permission from "../config/isPermission"
 import ApkMain from "../superuser/updateApkMain"
 import ToLogin from "./toLogin";
-import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom"
+import { BrowserRouter as Router, Route, Routes, useNavigate, Outlet, useSearchParams } from "react-router-dom"
 
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 import Logged from "./fromSlash";
@@ -29,6 +30,8 @@ import Logged from "./fromSlash";
 
 
 const Todo = () => {
+    // const [searchParams, setSearchParams] = useSearchParams()
+    // const [idtodo, setIdTodo] = React.useState 
     const navigate = useNavigate()
 
     const [role, setRole] = React.useState(null)
@@ -165,6 +168,15 @@ const Todo = () => {
                     </>
                 }>
                 </Route>
+                <Route path="/OneTodoDetails" element={
+                    <>
+                        <Menu who={who}></Menu>
+                        <br />
+                        <br />
+                   
+                        <OneTodo/>
+                    </>
+                }></Route>
 
 
 
