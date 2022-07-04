@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Url from "../config/url";
-import { Card, Button, Container, Col, Row, Modal, Form, ButtonGroup, ToggleButton } from "react-bootstrap"
+import { Card, Button, Container, Col, Row, Modal, Form, ButtonGroup, ToggleButton, Stack } from "react-bootstrap"
 import "./../oneTodo/oneTodo.css"
 import QrcodeGenerator from "./qrCodeTodo";
 
@@ -13,8 +13,24 @@ const OneTodo = () => {
     const query = new URLSearchParams(useLocation().search);
     const id = query.get("id")
     const [src, setSrc] = React.useState('')
+    const [srcToDone, setSrcToDone] = React.useState('')
+
 
     const [todo, setTodo] = React.useState()
+
+
+    const QrChangeToDoneTodo = async () => {
+        try {
+            await axios.get(Url + '/todo/getOne/' + id).then((response) => {
+                console.log("response /todoOne/ + id")
+                console.log(response.data)
+                setSrc(`${Url}/OneTodoDetails?id=${id}`)
+                setTodo(response.data)
+            });
+        } catch (err) {
+            console.log("Error: from todoOne, get /todoOne/ + id" + err)
+        }
+    }
 
     React.useEffect(() => {
         const getInfoAboutOneTodo = async () => {
@@ -23,6 +39,7 @@ const OneTodo = () => {
                     console.log("response /todoOne/ + id")
                     console.log(response.data)
                     setSrc(`${Url}/OneTodoDetails?id=${id}`)
+                    setSrcToDone(`${Url}/QrTodone?id=${id}`)
                     setTodo(response.data)
                 });
             } catch (err) {
@@ -44,6 +61,14 @@ const OneTodo = () => {
                 // style={style}
                 >
                     <Card.Body>
+                        <Card.Title>
+                            <Row>
+                                <Col className="d-flex justify-content-center">{todo.whoDone != null ? <><svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512" height='30' width='30' color='green'><title>Wykonane</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="50" d="M416 128L192 384l-96-96" /></svg> Zadanie wkonane</>
+                                    : <><svg xmlns="http://www.w3.org/2000/svg" className="ionicon" viewBox="0 0 512 512" height='30' width='30' color='red'><title>Close</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="50" d="M368 368L144 144M368 144L144 368" /></svg>Zadanie nie wykonane</>}</Col>
+                                {/* <Col className="d-flex flex-row-reverse">{todo.condition == 'Regenerowane' ? `${todo.time_morning == true ? 'rano' : 'wieczór'}  -  ${todo.collect_date}` : todo.collect_date}</Col> */}
+                            </Row>
+                        </Card.Title>
+                        <br />
                         <Card.Title>
                             <Row>
                                 <Col>{todo.internal_id}</Col>
@@ -108,47 +133,40 @@ const OneTodo = () => {
                                 </Col>
                             </Row>
                         </Card.Text>
-                        <Row>
+                        <Row >
                             <Col>
                                 <span id="span_whoadd">Dodał: {todo.whoAdd}</span>
                             </Col>
                             <Col>
-                                {todo.whoRestored &&
-                                    <span id="span_whoadd">Przywrócił: {todo.whoRestored}</span>
-                                }
+
+                                <span id="span_whoadd">Przywrócił: {todo.whoRestored == null ? '-' : todo.whoRestored}</span>
+
                             </Col>
+                            <Col>
 
-                            <Col className="d-flex flex-row-reverse">
-
-                                {/* <Button
-                                variant="primary"
-                                type="Button"
-                            // onClick={() => props.todoDone(todo.id)}
-                            >
-                                Wykonane
-                            </Button> */}
-
-                                {/* <Button
-                                id="button_todo_delete"
-                                variant="warning"
-                                type="Button"
-                            // onClick={() => props.editTodo(todo.id)}
-                            >
-                                Edytuj
-                            </Button> */}
-
+                                <span id="span_whoadd">Wykonał: {todo.whoDone == null ? ' - ' : todo.whoDone}</span>
 
                             </Col>
                         </Row>
+                        <hr />
                         <Row>
                             <Col className="d-flex justify-content-center">
-                                {src && <QrcodeGenerator src={src} />}
+                                <Stack>
+                                    <span>Szczegóły zadania: </span>
+                                    {src && <QrcodeGenerator src={src} />}
+                                </Stack>
+                            </Col>
+                            <Col className="d-flex justify-content-center">
+                                <Stack>
+                                    <span>Zeskanuj aby wykonać zadanie: </span>
+                                    {src && <QrcodeGenerator src={srcToDone} />}
+                                </Stack>
                             </Col>
                         </Row>
 
                     </Card.Body>
                 </Card>}
-                <br/>
+                <br />
                 <Button
                     variant="warning"
                     type="Button"

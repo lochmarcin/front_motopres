@@ -122,15 +122,12 @@ const Todo = () => {
                 </Route>
                 <Route path="/todo" element={
                     <>
-                        <BrowserView>
-                            <Menu role={role} who={who}></Menu>
-                            <br />
-                            <br />
-                            <TodoAll role={role}></TodoAll>
-                        </BrowserView>
-                        <MobileView>
-                            <p>MOBILE VIEW</p>
-                        </MobileView>
+
+                        <Menu role={role} who={who}></Menu>
+                        <br />
+                        <br />
+                        <TodoAll role={role}></TodoAll>
+
                     </>
                 }>
                 </Route>
@@ -152,7 +149,7 @@ const Todo = () => {
                         <Menu who={who}></Menu>
                         <br />
                         <br />
-                        <EditUser/>
+                        <EditUser />
                     </>
                 }>
                 </Route>
@@ -173,8 +170,18 @@ const Todo = () => {
                         <Menu who={who}></Menu>
                         <br />
                         <br />
-                   
-                        <OneTodo/>
+
+                        <OneTodo />
+                    </>
+                }></Route>
+
+                <Route path="/QrTodone" element={
+                    <>
+                        <Menu who={who}></Menu>
+                        <br />
+                        <br />
+
+                        <OneTodo />
                     </>
                 }></Route>
 

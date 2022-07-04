@@ -1,6 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { ReactComponent as Info } from './../../svg/info-svgrepo-com.svg';
+
 
 
 import { Card, Button, Col, Row, Modal } from "react-bootstrap"
@@ -148,6 +151,9 @@ const DoneTodo = (props) => {
                                         >
                                             Usuń
                                         </Button>
+                                        <Link to={`/OneTodoDetails?id=${todo.id}`}>
+                                            <Info id="infoSvg" />
+                                        </Link>
  
                                     </Col>
                                 </Row>
