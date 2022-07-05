@@ -26,7 +26,7 @@ const QrTodoToDone = () => {
     render(
         <>
             <p>chuj</p>
-            {doneTodo === true ? <p>True</p> : <p>False</p>}
+            {doneTodo === true ? <p>Zadanie zostało ukończone</p> : <p>Błąd... Jesteś zalogowany ?</p>}
         </>
     )
 }
