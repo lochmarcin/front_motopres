@@ -38,7 +38,7 @@ const AddUser = () => {
         e.preventDefault()
 
 
-        axios.post(Url + '/auth/register', {
+        axios.post(Url.api + '/auth/register', {
             firstname: firstname,
             lastname: lastname,
             username: username,

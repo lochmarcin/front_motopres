@@ -42,7 +42,7 @@ const AddTodo = (props) => {
 
         let date = moment(collectDate).format("YYYY-MM-DD")
 
-        axios.post(Url + '/todo/add', {
+        axios.post(Url.api + '/todo/add', {
             internal_id: id,
             condition: stan,
             part: towar,

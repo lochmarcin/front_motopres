@@ -1,16 +1,25 @@
 import { render } from "@testing-library/react";
+import { useNavigate, useLocation } from "react-router-dom";
 import React from "react";
 import Url from "../config/url";
+import axios from "axios";
+
 
 
 const QrTodoToDone = () => {
+    const navigate = useNavigate();
     const [doneTodo, setDoneTodo] = React.useState(false)
+    const query = new URLSearchParams(useLocation().search);
+    const id = query.get("id")
 
     React.useEffect(() => {
+        console.log("todo id: " + id)
+
         const QrChangeToDoneTodo = async () => {
             try {
-                await axios.get(Url + '/updateDone/' + id).then((response) => {
-                    console.log("response /updateDone/ + id")
+                console.log("todo id: " + id)
+                await axios.put(Url.api + '/todo/updateDone/' + id).then((response) => {
+                    console.log("response /todo/updateDone/ + id")
                     console.log(response.data)
                     setDoneTodo(true)
                 });
@@ -23,9 +32,10 @@ const QrTodoToDone = () => {
         QrChangeToDoneTodo()
     })
 
-    render(
+    return(
         <>
-            <p>chuj</p>
+            <p>QrCode todo to done </p>
+            <p>{id}</p>
             {doneTodo === true ? <p>Zadanie zostało ukończone</p> : <p>Błąd... Jesteś zalogowany ?</p>}
         </>
     )

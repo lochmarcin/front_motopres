@@ -32,7 +32,7 @@ const Todo = (props) => {
     const todoDone = async (id) => {
         const newTodo = todos.filter(todo => todo.id !== id)
         setTodos(newTodo)
-        axios.put(Url + '/todo/updateDone/' + id)
+        axios.put(Url.api + '/todo/updateDone/' + id)
 
     }
     const todoAdd = async (data) => {
@@ -73,7 +73,7 @@ const Todo = (props) => {
 
 
     const getData = () => {
-        axios.get(Url + '/todo/get').then((response) => {
+        axios.get(Url.api + '/todo/get').then((response) => {
             setTodos(response.data);
         });
     }
@@ -106,7 +106,7 @@ const Todo = (props) => {
             setIsEditor(true)
         }
         else if (props.role == null) {
-            axios.get(Url + '/users/me').then((response) => {
+            axios.get(Url.api + '/users/me').then((response) => {
                 // console.log(response.data)
                 response.data.isEditor == true || response.data.isAdmin == true ? setIsEditor(true) : setIsEditor(false)
             });

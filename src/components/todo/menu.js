@@ -20,7 +20,7 @@ const Menu = (props) => {
         
 
         if(props.role != "admin"){
-            axios.get(Url + '/users/me').then((response) => {
+            axios.get(Url.api + '/users/me').then((response) => {
             // console.log(response.data)
             response.data.isAdmin == true ? setIsAdmin(true) : setIsAdmin(false)
             setWho(response.data.firstname)

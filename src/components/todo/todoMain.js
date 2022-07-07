@@ -16,6 +16,7 @@ import Slash from './fromSlash'
 import Url from "../config/url"
 import EditUser from "../editUser/editUserMain"
 import OneTodo from "../oneTodo/oneTodoMain"
+import QrTodoToDone from "../oneTodo/qrTodoToDone"
 
 
 // import Logged from "../config/isLogged"
@@ -57,7 +58,7 @@ const Todo = () => {
 
         let result
         try {
-            await axios.get(Url + '/auth/me').then((response) => {
+            await axios.get(Url.api + '/auth/me').then((response) => {
                 if (response.data.logged === false) {
                     console.log("Logged - response.data.logged: " + response.data.logged)
                     setLogged(false)
@@ -75,7 +76,7 @@ const Todo = () => {
     }
 
     React.useEffect(() => {
-        axios.get(Url + '/auth/me').then((response) => {
+        axios.get(Url.api + '/auth/me').then((response) => {
             if (response.data.logged === false) {
                 // navigate('/login')
                 console.log("Logged - response.data.logged: " + response.data.logged)
@@ -181,7 +182,7 @@ const Todo = () => {
                         <br />
                         <br />
 
-                        <OneTodo />
+                        <QrTodoToDone />
                     </>
                 }></Route>
 

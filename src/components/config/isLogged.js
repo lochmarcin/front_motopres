@@ -8,7 +8,7 @@ const Logged = () => {
     const navigate = useNavigate()
 
     React.useEffect(() => {
-        axios.get(Url + '/auth/me').then((response) => {
+        axios.get(Url.api + '/auth/me').then((response) => {
             if (response.data.logged == false) {
                 navigate('/login')
             }

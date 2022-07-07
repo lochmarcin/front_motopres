@@ -18,7 +18,7 @@ const EditMainInfo = (props) => {
         console.log("Send Edit user")
 
         try {
-            await axios.put(Url + '/updateMe/' + props.userId,{
+            await axios.put(Url.api + '/updateMe/' + props.userId,{
                 firstname: firstname === '' ? userMainInfo.firstname : firstname, 
                 lastname: lastname === '' ? userMainInfo.lastname : lastname,
                 username: username === '' ? userMainInfo.username : username
@@ -38,7 +38,7 @@ const EditMainInfo = (props) => {
         const getInfoAboutUser = async () => {
 
             try {
-                await axios.get(Url + '/users/getOne/' + props.userId).then((response) => {
+                await axios.get(Url.api + '/users/getOne/' + props.userId).then((response) => {
                     setUserMainInfo(response.data)
                     console.log("response /users/getOne/: ")
                     console.log(response.data)

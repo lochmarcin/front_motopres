@@ -45,7 +45,7 @@ const TodoEdit = (props) => {
         }
         console.log(data)
 
-        axios.put(Url + '/todo/updateWeb/' + props.oneTodo.id, data)
+        axios.put(Url.api + '/todo/updateWeb/' + props.oneTodo.id, data)
             .then((response) => {
                 console.log(response.data)
                 if (response.data == true) {

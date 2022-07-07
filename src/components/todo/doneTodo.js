@@ -1,7 +1,7 @@
 import React from "react"
 import axios from "axios";
 import Url from "../config/url"
-import Filter from "./filter"
+import Filter from "./filter" 
 
 
 
@@ -17,14 +17,14 @@ const Donetodos = () => {
     const todoRestore = async (id) => {
         const newTodo = todos.filter(todo => todo.id !== id)
         setTodos(newTodo)
-        axios.put(Url + '/todo/updateNotDone/' + id).then((response) => {
+        axios.put(Url.api + '/todo/updateNotDone/' + id).then((response) => {
             console.log('przeniesiono zadanie do wykoania o id: ' + id)
         })
     }
     // Todo delete 
     const deleteTodo = (id) => {
         console.log("IDelete: " + id)
-        axios.delete(Url + '/todo/delete/' + id).then((response) => {
+        axios.delete(Url.api + '/todo/delete/' + id).then((response) => {
             if (response.data == true)
                 console.log("Deleted")
         })
@@ -33,7 +33,7 @@ const Donetodos = () => {
     }
 
     React.useEffect(() => {
-        axios.get(Url + '/todo/getDone').then((response) => {
+        axios.get(Url.api + '/todo/getDone').then((response) => {
             setTodos(response.data);
         });
     }, []);

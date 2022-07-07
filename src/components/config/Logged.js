@@ -4,7 +4,7 @@ import Url from "../config/url"
 async function Logged(){
     try {
         let dupa
-        await axios.get(Url + '/auth/me').then((response) => {
+        await axios.get(Url.api + '/auth/me').then((response) => {
             if (response.data.logged === false) {
                 // navigate('/login')
                 console.log("Logged - response.data.logged: " + response.data.logged)

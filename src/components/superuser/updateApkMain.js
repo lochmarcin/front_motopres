@@ -35,7 +35,7 @@ const Apk = () => {
         // }
 
 
-        axios.post(Url + '/upload/addApk', formData, {
+        axios.post(Url.api + '/upload/addApk', formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
@@ -56,7 +56,7 @@ const Apk = () => {
             });
 
 
-        //         axios.post(Url + '/upload/addApk', formData,
+        //         axios.post(Url.api + '/upload/addApk', formData,
         //             onUploadProgress(data) => {
         //     setProgress(Math.round((100 * data.loaded) / data.total));
         // })
@@ -78,10 +78,10 @@ const Apk = () => {
 
     const onSiteChanged = async (id) =>{
         console.log("onSiteChanged: " + id)
-        await axios.put(Url + '/upload/updateActualFile/' + id).then((response) => {
+        await axios.put(Url.api + '/upload/updateActualFile/' + id).then((response) => {
             console.log(response.data);
             if(response.data){
-                axios.get(Url + '/upload/getFiles').then((response) => {
+                axios.get(Url.api + '/upload/getFiles').then((response) => {
                     console.log(response.data);
                     setFiles(response.data)
                 });
@@ -135,7 +135,7 @@ const Apk = () => {
     React.useEffect(() => {
         console.log("useEffect")
 
-        axios.get(Url + '/upload/getFiles').then((response) => {
+        axios.get(Url.api + '/upload/getFiles').then((response) => {
             console.log(response.data);
             setFiles(response.data)
         });

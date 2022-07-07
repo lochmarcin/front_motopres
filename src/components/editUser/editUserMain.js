@@ -21,7 +21,7 @@ const EditUser = () => {
     const idUser = async () => {
 
         try {
-            await axios.get(Url + '/auth/me').then((response) => {
+            await axios.get(Url.api + '/auth/me').then((response) => {
                 setUserId(response.data.user_id)
                 console.log("response: " + response.data.user_id)
                 console.log("user_id: " + userId)

@@ -7,7 +7,7 @@ import Url from "../config/url"
 const Auth = () =>{
 
     React.useEffect(() => {
-        axios.get(Url + '/auth/me').then((response) => {
+        axios.get(Url.api + '/auth/me').then((response) => {
             // setTodos(response.data);
             console.log(response.data)
         });

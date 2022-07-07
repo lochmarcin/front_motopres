@@ -67,7 +67,7 @@ const UserList = (props) => {
 
     const updateUser = (e) => {
         e.preventDefault()
-        axios.put(Url + '/users/update/' + iduser, {
+        axios.put(Url.api + '/users/update/' + iduser, {
             firstname: firstname,
             lastname: lastname,
             username: username,
@@ -113,7 +113,7 @@ const UserList = (props) => {
     }
 
     React.useEffect(() => {
-        axios.get(Url + '/users/get').then((response) => {
+        axios.get(Url.api + '/users/get').then((response) => {
             setUsers(response.data);
         });
 

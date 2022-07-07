@@ -43,7 +43,7 @@ const ChangePass = (props) => {
             setErrorOldPass(true)
         else {
             try {
-                axios.put(Url + '/users/changePassword/' + props.userId, {
+                axios.put(Url.api + '/users/changePassword/' + props.userId, {
                     oldPassword: oldPassword,
                     firstNewPass: firstNewPass,
                     secondNewPass: secondNewPass

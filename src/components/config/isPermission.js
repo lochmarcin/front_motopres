@@ -7,7 +7,7 @@ const Permission = () => {
     const navigate = useNavigate()
 
     React.useEffect(() => {
-        axios.get(Url + '/users/me').then((response) => {
+        axios.get(Url.api + '/users/me').then((response) => {
             if(response.data.isAdmin != true)
                 navigate('/todo')
         });

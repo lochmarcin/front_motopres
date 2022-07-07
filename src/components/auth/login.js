@@ -37,7 +37,7 @@ const Login = (props) => {
         }
         return (
 
-            axios.post(Url + '/auth/login', {
+            axios.post(Url.api + '/auth/login', {
                 username: login,
                 password: password,
             }, { withCredentials: true })
@@ -66,7 +66,7 @@ const Login = (props) => {
     }
 
     const checkUser = () => {
-        axios.get(Url + '/auth/me')
+        axios.get(Url.api + '/auth/me')
             .then((response) => {
                 if (response.data.logged === false) {
                     setloginError(true)
@@ -149,6 +149,11 @@ const Login = (props) => {
                             onClick={() => download()}>
                             Pobierz
                         </Button>
+                        {/* <p>
+                            Api: {Url.api}
+                            Front: {Url.front}
+                            local: {Url.local}
+                        </p> */}
                     </Col>
                 </Row>
             </Container>

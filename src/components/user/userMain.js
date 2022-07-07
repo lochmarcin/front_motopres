@@ -4,17 +4,17 @@ import "./user.css"
 import AddUser from "./addUser";
 import UserList from "./UserList";
 
-const MainUser = () =>{
+const MainUser = () => {
 
 
-    return(
+    return (
         <>
-        <AddUser></AddUser>
-        <br/>
-        <div id="hr"></div>
-        {/* <EditUser></EditUser> */}
-        <UserList></UserList>
-        <br/>
+            <AddUser></AddUser>
+            <br />
+            <div id="hr"></div>
+            {/* <EditUser></EditUser> */}
+            <UserList></UserList>
+            <br />
         </>
     )
 }

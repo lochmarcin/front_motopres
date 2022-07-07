@@ -21,10 +21,10 @@ const OneTodo = () => {
 
     const QrChangeToDoneTodo = async () => {
         try {
-            await axios.get(Url + '/todo/getOne/' + id).then((response) => {
+            await axios.get(Url.api + '/todo/getOne/' + id).then((response) => {
                 console.log("response /todoOne/ + id")
                 console.log(response.data)
-                setSrc(`${Url}/OneTodoDetails?id=${id}`)
+                setSrc(`${Url.front}/OneTodoDetails?id=${id}`)
                 setTodo(response.data)
             });
         } catch (err) {
@@ -35,11 +35,11 @@ const OneTodo = () => {
     React.useEffect(() => {
         const getInfoAboutOneTodo = async () => {
             try {
-                await axios.get(Url + '/todo/getOne/' + id).then((response) => {
+                await axios.get(Url.api + '/todo/getOne/' + id).then((response) => {
                     console.log("response /todoOne/ + id")
                     console.log(response.data)
-                    setSrc(`${Url}/OneTodoDetails?id=${id}`)
-                    setSrcToDone(`${Url}/QrTodone?id=${id}`)
+                    setSrc(`${Url.front}/OneTodoDetails?id=${id}`)
+                    setSrcToDone(`${Url.front}/QrTodone?id=${id}`)
                     setTodo(response.data)
                 });
             } catch (err) {
@@ -159,7 +159,7 @@ const OneTodo = () => {
                             <Col className="d-flex justify-content-center">
                                 <Stack>
                                     <span>Zeskanuj aby wykonać zadanie: </span>
-                                    {src && <QrcodeGenerator src={srcToDone} />}
+                                    {srcToDone && <QrcodeGenerator src={srcToDone} />}
                                 </Stack>
                             </Col>
                         </Row>
