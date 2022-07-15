@@ -20,7 +20,16 @@ const Todos = (props) => {
 
     return (
         <>
-            {dataTodos.map((todo) => {
+        {console.log("Search: " + props.search)}
+            {dataTodos
+            .filter((todo)=>{
+                if(props.search == "" || props.search == null)
+                    return todo
+                else if(todo.part.toLowerCase().includes(props.search.toLowerCase())){
+                    return todo
+                }
+            })
+            .map((todo) => {
                 {
                     // 
                     if (todo.condition == 'Nowe / używane') {
@@ -69,7 +78,7 @@ const Todos = (props) => {
                                         </Col>
                                         <Col>
                                             <label>
-                                                Kaucja/magazyn :
+                                                Kaucja/magazyn:
                                                 <br />
                                                 {/* {todo.deposit} */}
                                                 {todo.deposit == true ? <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512" height='30' width='30' color='green'><title>Checkmark</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="50" d="M416 128L192 384l-96-96" /></svg> :
@@ -84,13 +93,22 @@ const Todos = (props) => {
                                                 {todo.indexx}
                                             </label>
                                         </Col>
-                                        {todo.condition == 'Regenerowane' ? <Col>
+                                        {todo.condition == 'Regenerowane' ? <Col xs="2" sm="2" md="2" lg="2">
                                             <label>
                                                 Numer opaski:
                                                 <br />
                                                 {todo.band_number}
                                             </label>
-                                        </Col> : null}
+                                        </Col> : <Col xs="0" sm="0" md="2" lg="2"></Col>}
+
+                                        <Col  xs="2" sm="1" md="1" lg="1">
+                                            <label>
+                                                Faktura:
+                                                <br />
+                                                {todo.fv == true ? <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512" height='30' width='30' color='green'><title>TAK</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="50" d="M416 128L192 384l-96-96" /></svg> :
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="ionicon" viewBox="0 0 512 512" height='30' width='30' color='red'><title>NIE</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="50" d="M368 368L144 144M368 144L144 368" /></svg>}
+                                            </label>
+                                        </Col>
 
                                         <Col id="price" className="d-flex flex-row-reverse">
                                             <label>
@@ -113,6 +131,7 @@ const Todos = (props) => {
                                         </Col>
                                     </Row>
                                 </Card.Text>
+                                <br/>
                                 <Row>
                                     <Col>
                                         <span id="span_whoadd">Dodał: {todo.whoAdd}</span>

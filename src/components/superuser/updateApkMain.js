@@ -71,7 +71,7 @@ const Apk = () => {
         console.log("Download File: " + id)
 
         saveAs(
-            `http://127.0.0.1:5000/upload/download/${id}`
+            `${Url.api}/upload/download/${id}`
         );
         
     }

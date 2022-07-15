@@ -22,6 +22,8 @@ const TodoEdit = (props) => {
     const [bandNumber, setBandNumber] = React.useState('')
     const [price, setPrice] = React.useState('')
     const [note, setNote] = React.useState('')
+    const [fv, setFv] = React.useState(false)
+
 
 
     const editOneTodo = (e) => {
@@ -41,7 +43,8 @@ const TodoEdit = (props) => {
             band_number: bandNumber,
             price: price,
             note: note,
-            whoAdd: props.oneTodo.whoAdd
+            whoAdd: props.oneTodo.whoAdd,
+            fv: fv
         }
         console.log(data)
 
@@ -76,6 +79,7 @@ const TodoEdit = (props) => {
         setBandNumber(props.oneTodo.band_number)
         setPrice(props.oneTodo.price)
         setNote(props.oneTodo.note)
+        setFv(props.oneTodo.fv)
 
     }, []);
     return (
@@ -214,6 +218,17 @@ const TodoEdit = (props) => {
                                             value={bandNumber}
                                             onChange={(e) => setBandNumber(e.target.value)}
                                         />
+                                    </label>
+                                </Col>
+                                <Col xs="auto" sm="auto" md="auto" lg="auto">
+                                    <label id="label_deposit">
+                                        <Form.Check
+                                            type='checkbox'
+                                            name="deposit"
+                                            defaultChecked={fv}
+                                            onChange={() => setFv(!fv)}
+                                        />
+                                        - FV
                                     </label>
                                 </Col>
 

@@ -20,7 +20,7 @@ const Todo = (props) => {
     const [isUptaded, setIsUptaded] = React.useState(false)
     const [oneTodo, setOneTodo] = React.useState(null)
     const [radioValue, setRadioValue] = React.useState("Wszystko");
-    // let news
+    const [search, setSearch] = React.useState("")
 
 
     const [isEditor, setIsEditor] = React.useState(false)
@@ -126,8 +126,8 @@ const Todo = (props) => {
                 <br />
 
                 <div id="hr"></div> */}
-                <Filter radioValue={radioValue} setRadioValue={setRadioValue}></Filter>
-                {todos && <Todos radioValue={radioValue} todos={todos} todoDone={todoDone} editTodo={editTodo}></Todos>}
+                <Filter setSearch={setSearch} radioValue={radioValue} setRadioValue={setRadioValue}></Filter>
+                {todos && <Todos search={search} radioValue={radioValue} todos={todos} todoDone={todoDone} editTodo={editTodo}></Todos>}
 
                 {showEdit && <TodoEdit setShowEdit={setShowEdit} oneTodo={oneTodo} updatedTodo={updatedTodo} />}
 

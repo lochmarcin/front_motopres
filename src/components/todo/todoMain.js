@@ -3,7 +3,6 @@ import Menu from "./menu"
 import Todos from "./oneTodo"
 import AddTodo from "./addTodo";
 import Donetodo from "./doneTodo";
-import "./todoMain.css"
 import UserEdit from "../user/usersEdit"
 import TodoAll from "./todo"
 import Login from "../auth/login";
@@ -17,7 +16,9 @@ import Url from "../config/url"
 import EditUser from "../editUser/editUserMain"
 import OneTodo from "../oneTodo/oneTodoMain"
 import QrTodoToDone from "../oneTodo/qrTodoToDone"
+import Footer from "./footer"
 
+import "./todoMain.css"
 
 // import Logged from "../config/isLogged"
 import Permission from "../config/isPermission"
@@ -129,6 +130,7 @@ const Todo = () => {
                         <br />
                         <TodoAll role={role}></TodoAll>
 
+                        <Footer/>
                     </>
                 }>
                 </Route>
@@ -140,6 +142,8 @@ const Todo = () => {
                         <br />
                         <br />
                         <MainUser></MainUser>
+
+                        <Footer/>
                     </>
                 }>
                 </Route>
@@ -151,6 +155,8 @@ const Todo = () => {
                         <br />
                         <br />
                         <EditUser />
+
+                        <Footer/>
                     </>
                 }>
                 </Route>
@@ -163,6 +169,8 @@ const Todo = () => {
                         <br />
                         <br />
                         <Donetodo />
+
+                        <Footer/>
                     </>
                 }>
                 </Route>
@@ -173,6 +181,8 @@ const Todo = () => {
                         <br />
 
                         <OneTodo />
+
+                        <Footer/>
                     </>
                 }></Route>
 
@@ -183,6 +193,9 @@ const Todo = () => {
                         <br />
 
                         <QrTodoToDone />
+
+                        <Footer/>
+
                     </>
                 }></Route>
 

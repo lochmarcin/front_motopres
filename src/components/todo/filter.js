@@ -1,11 +1,16 @@
 import React from "react"
-import { ButtonGroup, ToggleButton } from "react-bootstrap"
+import { ButtonGroup, ToggleButton, FloatingLabel, Form } from "react-bootstrap"
 
 
 const Filter = (props) => {
-    
+
     return (
         <>
+        <div id="SearchAndFilter">
+            <Form id="search">
+                <Form.Control type="search" placeholder="Szukaj..." onChange={(e)=>props.setSearch(e.target.value)}/>
+            </Form>
+            {}
             <ButtonGroup id="filter_buttons">
                 <ToggleButton
                     // key={idx}
@@ -19,6 +24,7 @@ const Filter = (props) => {
                 >
                     Wszystko
                 </ToggleButton>
+                
                 <ToggleButton
                     // key={idx}
                     id='reg'
@@ -44,6 +50,7 @@ const Filter = (props) => {
                     Nowe / Używane
                 </ToggleButton>
             </ButtonGroup>
+            </div>
         </>
     )
 }

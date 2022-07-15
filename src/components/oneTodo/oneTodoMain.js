@@ -14,6 +14,7 @@ const OneTodo = () => {
     const id = query.get("id")
     const [src, setSrc] = React.useState('')
     const [srcToDone, setSrcToDone] = React.useState('')
+    const [srcToDoneButton, setSrcToDoneButton] = React.useState('')
 
 
     const [todo, setTodo] = React.useState()
@@ -40,6 +41,7 @@ const OneTodo = () => {
                     console.log(response.data)
                     setSrc(`${Url.front}/OneTodoDetails?id=${id}`)
                     setSrcToDone(`${Url.front}/QrTodone?id=${id}`)
+                    setSrcToDoneButton(`/QrTodone?id=${id}`)
                     setTodo(response.data)
                 });
             } catch (err) {
@@ -111,6 +113,14 @@ const OneTodo = () => {
                                         {todo.band_number}
                                     </label>
                                 </Col> : null}
+                                <Col xs="2" sm="1" md="1" lg="1">
+                                    <label>
+                                        Faktura:
+                                        <br />
+                                        {todo.fv == true ? <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512" height='30' width='30' color='green'><title>TAK</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="50" d="M416 128L192 384l-96-96" /></svg> :
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="ionicon" viewBox="0 0 512 512" height='30' width='30' color='red'><title>NIE</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="50" d="M368 368L144 144M368 144L144 368" /></svg>}
+                                    </label>
+                                </Col>
 
                                 <Col id="price" className="d-flex flex-row-reverse">
                                     <label>
@@ -150,29 +160,43 @@ const OneTodo = () => {
                         </Row>
                         <hr />
                         <Row>
-                            <Col className="d-flex justify-content-center">
-                                <Stack>
-                                    <span>Szczegóły zadania: </span>
-                                    {src && <QrcodeGenerator src={src} />}
-                                </Stack>
+
+
+                            <Col>
+                                <p>Szczegóły zadania: </p>
+                                {src && <QrcodeGenerator src={src} />}
+
                             </Col>
-                            <Col className="d-flex justify-content-center">
-                                <Stack>
-                                    <span>Zeskanuj aby wykonać zadanie: </span>
-                                    {srcToDone && <QrcodeGenerator src={srcToDone} />}
-                                </Stack>
+
+                            {todo.whoDone == null ? <Col>
+
+                                <p>Zeskanuj aby wykonać zadanie: </p>
+                                {srcToDone && <QrcodeGenerator src={srcToDone} />}
+
+                                <Button
+                                    variant="warning"
+                                    type="Button"
+                                    onClick={() => navigate(`${srcToDoneButton}`)}
+                                >
+                                    Wykonane
+                                </Button>
+
                             </Col>
+                                : ''
+                            }
+
                         </Row>
 
                     </Card.Body>
                 </Card>}
                 <br />
+
                 <Button
                     variant="warning"
                     type="Button"
                     onClick={() => navigate("/todo")}
                 >
-                    Wróć to listy
+                    Wróć to Zleceń
                 </Button>
 
             </div>

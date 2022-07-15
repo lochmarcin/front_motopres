@@ -4,6 +4,9 @@
     flex-direction: column;
     align-items: center;
   }
+  p{
+    margin-bottom: 0;
+  }
 
   #span_whoadd {
     color: darkgray;
