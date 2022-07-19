@@ -10,6 +10,8 @@ import DoneTodo from "./doneTodoOne";
 const Donetodos = () => {
     const [todos, setTodos] = React.useState(null);
     const [radioValue, setRadioValue] = React.useState("Wszystko");
+    const [search, setSearch] = React.useState("")
+
 
     // const [alert, setAlert] = React.useState(false);
 
@@ -41,10 +43,10 @@ const Donetodos = () => {
     return (
         <>
             <div id="container">
-                <Filter radioValue={radioValue} setRadioValue={setRadioValue}></Filter>
+                <Filter setSearch={setSearch} radioValue={radioValue} setRadioValue={setRadioValue}></Filter>
 
                 <h1>Wykonane zadania:</h1>
-                {todos && <DoneTodo radioValue={radioValue} todos={todos} todoRestore={todoRestore} deleteTodo={deleteTodo}></DoneTodo>}
+                {todos && <DoneTodo  search={search} radioValue={radioValue} todos={todos} todoRestore={todoRestore} deleteTodo={deleteTodo}></DoneTodo>}
             </div>
         </>
     )

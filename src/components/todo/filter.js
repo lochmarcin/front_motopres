@@ -8,7 +8,7 @@ const Filter = (props) => {
         <>
         <div id="SearchAndFilter">
             <Form id="search">
-                <Form.Control type="search" placeholder="Szukaj..." onChange={(e)=>props.setSearch(e.target.value)}/>
+                <Form.Control type="text" placeholder="Szukaj..." onChange={(e)=>props.setSearch(e.target.value)}/>
             </Form>
             {}
             <ButtonGroup id="filter_buttons">
