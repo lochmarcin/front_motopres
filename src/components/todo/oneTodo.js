@@ -28,8 +28,7 @@ const Todos = (props) => {
                 else if(todo.part.toLowerCase().includes(props.search.toLowerCase())){
                     return todo
                 }
-            })
-            .map((todo) => {
+            }).map((todo) => {
                 {
                     // 
                     if (todo.condition == 'Nowe / używane') {
