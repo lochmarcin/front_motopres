@@ -29,14 +29,7 @@ const Login = (props) => {
 
     const authorization = (e) => {
         e.preventDefault()
-
-        if (isMobile) {
-            return (
-                <div> Aby móc korzystać na telefonie pobierz aplikację poniżej</div>
-            )
-        }
-        return (
-
+    
             axios.post(Url.api + '/auth/login', {
                 username: login,
                 password: password,
@@ -61,8 +54,7 @@ const Login = (props) => {
                     console.log(error);
                 })
 
-        )
-
+        
     }
 
     const checkUser = () => {
@@ -138,7 +130,7 @@ const Login = (props) => {
                 <br />
                 <br />
                 <br />
-                {mobile && alert("Aby móc korzystac na telefonie pobierz aplikację mobilną")}
+                {/* {mobile && alert("Aby móc korzystac na telefonie pobierz aplikację mobilną")} */}
                 <Row>
                     <Col md={{ span: 4, offset: 4 }} id="download">
                         <p><b>Pobierz aplikację mobilną Motopres</b></p>
