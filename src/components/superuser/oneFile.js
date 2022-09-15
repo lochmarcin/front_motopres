@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Row, Col, Button, Form } from "react-bootstrap";
 import { ReactComponent as Download } from './../../svg/download.svg';
+import { ReactComponent as Trash } from './../../svg/trash.svg';
 import "./file.css"
 
 
@@ -47,6 +48,7 @@ const OneFile = (props) => {
                         </td>
                         <td>
                             {file.createdAt}
+                            <Trash id='downloadSvg' onClick={() => props.deleteFile(file.id)}/>
                         </td>
                     </tr>
 

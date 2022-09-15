@@ -78,28 +78,20 @@ const Todo = (props) => {
         });
     }
 
-    // setNews((int) => {
-    //     return int
-    // }
-    // )
-
-
-    // const interval = () => {
-    //     setInterval(() => {
-    //         axios.get(Url + '/news/todos').then((response) => {
-    //             // console.log(response.data.todos)
-    //             if (response.data.todos != news) {
-    //                 getData()
-    //                 setNews(response.data.todos)
-    //             }
-    //         });
-    //     }, 10000);
-    // }
-
+    let changes
 
     React.useEffect(() => {
         getData()
-        // interval()
+        // // interval()
+
+
+      
+       
+        // changes = setInterval(getData, 1000);
+
+        // axios.get(Url.api + '/todo/get').then((response) => {
+        //     setTodos(response.data);
+        // });
 
         // console.log(props.role)
         if (props.role == 'admin' || props.role == 'editor') {

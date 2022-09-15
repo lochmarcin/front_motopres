@@ -101,6 +101,8 @@ const Todo = () => {
             <Routes>
                 <Route path="/test" element={
                     <>
+                        <Slash from="test" />
+                        {test() == true ? <p>super</p> : <p>chujowo</p>}
                         <p>TEST</p>
                         {logged === true ? <p>super</p> : <p>chujowo</p>}
 
@@ -115,27 +117,30 @@ const Todo = () => {
                 <Route path="/login" element={
                     <>
                         {/* {test} */}
-                        {/* {logged === true ? navigate('/todo') : <Login userWho={userWho} userRole={userRole} />} */}
-                        <Slash />
-                        <Login userWho={userWho} userRole={userRole}></Login>
+                        {/* {test() == true ? navigate('/todo') : <Login userWho={userWho} userRole={userRole} />} */}
+                        <Slash from="todo" />
 
+                        <Login userWho={userWho} userRole={userRole} />
                     </>
                 }>
                 </Route>
                 <Route path="/todo" element={
                     <>
+                        <Slash from="todo" />
 
                         <Menu role={role} who={who}></Menu>
                         <br />
                         <br />
                         <TodoAll role={role}></TodoAll>
 
-                        <Footer/>
+                        <Footer />
                     </>
                 }>
                 </Route>
                 <Route path="/users" element={
                     <>
+                        <Slash from="users"/>
+
                         <Permission></Permission>
                         {/* <Logged></Logged> */}
                         <Menu who={who}></Menu>
@@ -143,12 +148,14 @@ const Todo = () => {
                         <br />
                         <MainUser></MainUser>
 
-                        <Footer/>
+                        <Footer />
                     </>
                 }>
                 </Route>
                 <Route path="/editMe" element={
                     <>
+                        <Slash from="editMe"/>
+
                         {/* <Permission></Permission> */}
                         {/* <Logged></Logged> */}
                         <Menu who={who}></Menu>
@@ -156,7 +163,7 @@ const Todo = () => {
                         <br />
                         <EditUser />
 
-                        <Footer/>
+                        <Footer />
                     </>
                 }>
                 </Route>
@@ -170,7 +177,7 @@ const Todo = () => {
                         <br />
                         <Donetodo />
 
-                        <Footer/>
+                        <Footer />
                     </>
                 }>
                 </Route>
@@ -182,7 +189,7 @@ const Todo = () => {
 
                         <OneTodo />
 
-                        <Footer/>
+                        <Footer />
                     </>
                 }></Route>
 
@@ -194,7 +201,7 @@ const Todo = () => {
 
                         <QrTodoToDone />
 
-                        <Footer/>
+                        <Footer />
 
                     </>
                 }></Route>

@@ -76,6 +76,20 @@ const Apk = () => {
         
     }
 
+    const deleteFile = async (id) =>{
+        console.log("FRONT DELETE FILE")
+        await axios.delete(Url.api + '/upload/deleteFile/' + id).then((response) => {
+            console.log(response.data);
+            if(response.data){
+                axios.get(Url.api + '/upload/getFiles').then((response) => {
+                    console.log(response.data);
+                    setFiles(response.data)
+                });
+            }
+            // setFiles(response.data)
+        });
+    }
+
     const onSiteChanged = async (id) =>{
         console.log("onSiteChanged: " + id)
         await axios.put(Url.api + '/upload/updateActualFile/' + id).then((response) => {
@@ -182,7 +196,7 @@ const Apk = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <OneFile downloadFile={downloadFile} files={files} onSiteChanged={onSiteChanged} actualFile={actualFile} setActualFile={setActualFile}></OneFile>
+                            <OneFile downloadFile={downloadFile} files={files} onSiteChanged={onSiteChanged} actualFile={actualFile} setActualFile={setActualFile} deleteFile={deleteFile}></OneFile>
                         </tbody>
                     </Table>
 
