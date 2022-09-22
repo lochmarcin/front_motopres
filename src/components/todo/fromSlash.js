@@ -14,8 +14,10 @@ const Logged = (props) => {
             console.log(response.data)
             if (response.data.logged === true) {
                 console.log("(:From slash logged==" + response.data.logged)
-                
-                navigate(`/${props.from}`)
+                if(props.from == undefined)
+                    navigate('/todo')
+                else    
+                    navigate(`/${props.from}`)
             }
             else if (response.data.logged === false) {
                 console.log(":((( From slash logged==" + response.data.logged)

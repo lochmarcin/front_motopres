@@ -34,7 +34,7 @@ const UserList = (props) => {
         const newUsers = users.filter(users => users.id !== id)
         setUsers(newUsers)
 
-        axios.delete(Url + '/users/delete/' + id).then((response) => {
+        axios.delete(Url.api + '/users/delete/' + id).then((response) => {
             console.log("Usunięto uzytkonika")
         });
     }
