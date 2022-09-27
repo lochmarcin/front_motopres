@@ -54,10 +54,6 @@ const EditMainInfo = (props) => {
     return (
         <>
             <h3> Twoje dane:</h3>
-            {
-                console.log(props.userMainInfo)
-
-            }
             <Form onSubmit={editUser}>
                 <Table id="mainInfoUserTable" striped bordered hover>
                     <tr>

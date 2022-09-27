@@ -17,57 +17,20 @@ const EditUser = () => {
     // const [user_id, setUserId] = React.useState(null);
     const [userMainInfo, setUserMainInfo] = React.useState(null);
     const [userId, setUserId] = React.useState(null)
+    const [logs, setLogs] = React.useState(null);
+    const [search, setSearch] = React.useState("")
 
-    const idUser = async () => {
+
+    React.useEffect(async () => {
 
         try {
-            await axios.get(Url.api + '/auth/me').then((response) => {
+            axios.get(Url.api + '/auth/me').then((response) => {
                 setUserId(response.data.user_id)
                 console.log("response: " + response.data.user_id)
-                console.log("user_id: " + userId)
-                return userId
             });
         } catch (err) {
-            console.log("Error: from editUserMain, get /auth/me to set iduser" + err)
+            console.log("Error: from axios.get(Url.api + '/auth/me'), get /auth/me to set iduser" + err)
         }
-    }
-    // const getInfoAboutUser = async () => {
-
-    //     try {
-    //         await axios.get(Url + '/users/getOne/' + userId).then((response) => {
-    //             setUserMainInfo(response.data)
-    //             console.log("response /users/getOne/: ")
-    //             console.log(response.data)
-    //         });
-    //     } catch (err) {
-    //         console.log("Error: from editUserMain, get /users/getOne/ " + err)
-    //     }
-    // }
-
-
-    React.useEffect(() => {
-
-
-        // const gettata = async () =>{
-        //     try {
-        //         await getInfoAboutUser()
-        //     } catch (err) {
-        //         console.log("gettata: " + err)
-        //     }
-        // }
-        const getid = async () => {
-            try {
-                await idUser()
-            } catch (err) {
-                console.log("gettata: " + err)
-            }
-        }
-        getid()
-
-        // // idUser().then(() => {getInfoAboutUser()})
-        // idUser().then((response) => {
-        //     console.log("ID user from use Effect: " + response)
-        // })
 
     });
 
@@ -91,7 +54,8 @@ const EditUser = () => {
                 <Accordion.Item eventKey="2">
                     <Accordion.Header>Logi</Accordion.Header>
                     <Accordion.Body>
-                        {userId && <Logi userId={userId} />}
+
+                        {userId && <Logi logs={logs} userId={userId} />}
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
