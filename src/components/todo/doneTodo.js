@@ -16,17 +16,21 @@ const Donetodos = () => {
     // const [alert, setAlert] = React.useState(false);
 
 
-    const todoRestore = async (id) => {
+    const todoRestore = async (id, internal_id) => {
         const newTodo = todos.filter(todo => todo.id !== id)
         setTodos(newTodo)
-        axios.put(Url.api + '/todo/updateNotDone/' + id).then((response) => {
+        axios.put(Url.api + '/todo/updateNotDone/' + id, internal_id).then((response) => {
             console.log('przeniesiono zadanie do wykoania o id: ' + id)
         })
     }
     // Todo delete 
-    const deleteTodo = (id) => {
-        console.log("IDelete: " + id)
-        axios.delete(Url.api + '/todo/delete/' + id).then((response) => {
+    const deleteTodo = (id, internal_id) => {
+        // console.log("IDelete: " + id + "internal_ID: " + internal_id)
+
+        let data = {
+            internal_id:internal_id
+        }
+        axios.put(Url.api + '/todo/delete/' + id, data).then((response) => {
             if (response.data == true)
                 console.log("Deleted")
         })

@@ -15,7 +15,6 @@ const DoneTodo = (props) => {
 
 
     const updatedAlert = () => {
-        console.log("CHUJ")
         setAlert(true)
         setTimeout(
             () => setAlert(false),
@@ -23,9 +22,9 @@ const DoneTodo = (props) => {
         );
     }
 
-    const delete_tudo_button = (id) => {
+    const delete_tudo_button = (id, internal_id) => {
         updatedAlert()
-        props.deleteTodo(id)
+        props.deleteTodo(id, internal_id)
     }
 
     let style
@@ -147,7 +146,7 @@ const DoneTodo = (props) => {
                                             <Button
                                                 variant="primary"
                                                 type="Button"
-                                                onClick={() => props.todoRestore(todo.id)}
+                                                onClick={() => props.todoRestore(todo.id, todo.internal_id)}
                                             >
                                                 Przywróć
                                             </Button>
@@ -155,7 +154,7 @@ const DoneTodo = (props) => {
                                                 id="button_todo_delete"
                                                 variant="danger"
                                                 type="Button"
-                                                onClick={() => delete_tudo_button(todo.id)}
+                                                onClick={() => delete_tudo_button(todo.id, todo.internal_id)}
                                             >
                                                 Usuń
                                             </Button>

@@ -46,7 +46,7 @@ const TodoEdit = (props) => {
             whoAdd: props.oneTodo.whoAdd,
             fv: fv
         }
-        console.log(data)
+        // console.log(data)
 
         axios.put(Url.api + '/todo/updateWeb/' + props.oneTodo.id, data)
             .then((response) => {
