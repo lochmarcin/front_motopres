@@ -19,15 +19,17 @@ const Donetodos = () => {
     const todoRestore = async (id, internal_id) => {
         const newTodo = todos.filter(todo => todo.id !== id)
         setTodos(newTodo)
-        axios.put(Url.api + '/todo/updateNotDone/' + id, internal_id).then((response) => {
+        const data = {
+            internal_id:internal_id
+        }
+        axios.put(Url.api + '/todo/updateNotDone/' + id, data).then((response) => {
             console.log('przeniesiono zadanie do wykoania o id: ' + id)
         })
     }
     // Todo delete 
     const deleteTodo = (id, internal_id) => {
         // console.log("IDelete: " + id + "internal_ID: " + internal_id)
-
-        let data = {
+        const data = {
             internal_id:internal_id
         }
         axios.put(Url.api + '/todo/delete/' + id, data).then((response) => {

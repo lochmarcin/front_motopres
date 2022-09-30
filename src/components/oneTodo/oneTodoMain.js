@@ -2,9 +2,11 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Url from "../config/url";
-import { Card, Button, Container, Col, Row, Modal, Form, ButtonGroup, ToggleButton, Stack } from "react-bootstrap"
+import { Card, Button, Container, Col, Row, Modal, Form, ButtonGroup, ToggleButton, Stack, Accordion } from "react-bootstrap"
 import "./../oneTodo/oneTodo.css"
 import QrcodeGenerator from "./qrCodeTodo";
+
+import OneTodoLog from "./logsOneTodo" 
 
 
 const OneTodo = () => {
@@ -15,6 +17,7 @@ const OneTodo = () => {
     const [src, setSrc] = React.useState('')
     const [srcToDone, setSrcToDone] = React.useState('')
     const [srcToDoneButton, setSrcToDoneButton] = React.useState('')
+    const [logsTodo, setLogsTodo] = React.useState([])
 
 
     const [todo, setTodo] = React.useState()
@@ -48,7 +51,19 @@ const OneTodo = () => {
                 console.log("Error: from todoOne, get /todoOne/ + id" + err)
             }
         }
+
+        const getLogAboutTodo = async () => {
+            try {
+                await axios.get(Url.api + '/logs/getHistorytodo/' + id).then((response) => {
+                    setLogsTodo(response.data)
+                    // console.log(response.data)
+                })
+            } catch (error) {
+                console.log("Error: getLogAboutTodo")
+            }
+        }
         getInfoAboutOneTodo()
+        getLogAboutTodo()
     }, []);
 
 
@@ -188,6 +203,15 @@ const OneTodo = () => {
                         </Row>
 
                     </Card.Body>
+                    <Accordion id="accordion">
+                        <Accordion.Item eventKey="0">
+                            <Accordion.Header>Historia zadania: </Accordion.Header>
+                            <Accordion.Body>
+                                {logsTodo && <OneTodoLog logsTodo={logsTodo} ></OneTodoLog>}
+
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    </Accordion>
                 </Card>}
                 <br />
 

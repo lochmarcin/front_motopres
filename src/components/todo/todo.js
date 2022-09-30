@@ -29,10 +29,13 @@ const Todo = (props) => {
 
 
 
-    const todoDone = async (id) => {
+    const todoDone = async (id, internal_id) => {
         const newTodo = todos.filter(todo => todo.id !== id)
         setTodos(newTodo)
-        axios.put(Url.api + '/todo/updateDone/' + id)
+        const data = {
+            internal_id: internal_id
+        }
+        axios.put(Url.api + '/todo/updateDone/' + id, data)
 
     }
     const todoAdd = async (data) => {
