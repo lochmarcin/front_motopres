@@ -24,3 +24,14 @@ td{
     width: 35px;
     height: 35px;
 }
+#search{
+    display: flex;
+    justify-content: center;
+}
+#data_picker_logs{
+    min-width: 150px;
+    max-width: 250px;
+}
+.logsSearch{
+    margin: 5px 20px 5px 20px
+}

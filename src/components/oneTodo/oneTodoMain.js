@@ -19,6 +19,7 @@ const OneTodo = () => {
     const [srcToDoneButton, setSrcToDoneButton] = React.useState('')
     const [logsTodo, setLogsTodo] = React.useState([])
 
+    
 
     const [todo, setTodo] = React.useState()
 
@@ -189,7 +190,7 @@ const OneTodo = () => {
                                 {srcToDone && <QrcodeGenerator src={srcToDone} />}
 
                                 <Button
-                                    variant="warning"
+                                    variant="primary"
                                     type="Button"
                                     onClick={() => navigate(`${srcToDoneButton}`)}
                                 >

@@ -91,3 +91,6 @@
 #search{
   margin-right: 50px;
 }
+#search_control{
+  max-height: 40px;
+}
