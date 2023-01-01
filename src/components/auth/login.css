@@ -36,3 +36,11 @@
 #download p{
     margin: 0;
 }
+#apple{
+    max-width: 30px;
+    max-height: 30px;
+}
+#android{
+    max-width: 30px;
+    max-height: 30px;
+}

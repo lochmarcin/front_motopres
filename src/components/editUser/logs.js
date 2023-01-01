@@ -24,9 +24,9 @@ const Logi = () => {
         // console.log(dateToSend)
         setStartDate(date)
 
-        axios.post(Url.api + '/logs/getMyLog',{
-            startDate:date,
-            endDate:endDate
+        axios.post(Url.api + '/logs/getMyLog', {
+            startDate: date,
+            endDate: endDate
         }).then((response) => {
             setLogs(response.data)
             // console.log(response.data[1])
@@ -37,9 +37,9 @@ const Logi = () => {
         // console.log(dateToSend)
         setEndDate(date)
 
-        axios.post(Url.api + '/logs/getMyLog',{
-            startDate:startDate,
-            endDate:date
+        axios.post(Url.api + '/logs/getMyLog', {
+            startDate: startDate,
+            endDate: date
         }).then((response) => {
             setLogs(response.data)
             // console.log(response.data[1])
@@ -48,7 +48,15 @@ const Logi = () => {
 
     React.useEffect(() => {
         console.log("LOGS")
-        axios.get(Url.api + '/logs/getMyLog').then((response) => {
+        // axios.get(Url.api + '/logs/getMyLog').then((response) => {
+        //     setLogs(response.data)
+        //     // console.log(response.data[1])
+        // });
+
+        axios.post(Url.api + '/logs/getMyLog', {
+            startDate: startDate,
+            endDate: endDate
+        }).then((response) => {
             setLogs(response.data)
             // console.log(response.data[1])
         });

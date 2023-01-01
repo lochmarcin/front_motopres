@@ -7,6 +7,8 @@ import axios from 'axios'
 import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom"
 import { Col, Container, Form, Row, Button, Alert } from "react-bootstrap"
 import Url from "../config/url"
+import { ReactComponent as Android } from './../../svg/android.svg';
+import { ReactComponent as Apple } from './../../svg/apple.svg';
 
 import FileSaver from 'file-saver';
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
@@ -71,11 +73,21 @@ const Login = (props) => {
             })
     }
 
-    const download = async () => {
+    const downloadAndroid = async () => {
         // e.preventDefault()
         try {
-            console.log("Pobierz")
-            FileSaver.saveAs(`${Url.api}/upload/downloadMain`, "Motopres");
+            console.log("Pobierz Android")
+            FileSaver.saveAs(`${Url.api}/upload/downloadAndroid`, "Motopres");
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const downloadApple = async () => {
+        // e.preventDefault()
+        try {
+            console.log("Pobierz Apple")
+            FileSaver.saveAs(`${Url.api}/upload/downloadApple`, "Motopres");
         } catch (err) {
             console.log(err)
         }
@@ -133,13 +145,23 @@ const Login = (props) => {
                 {/* {mobile && alert("Aby móc korzystac na telefonie pobierz aplikację mobilną")} */}
                 <Row>
                     <Col md={{ span: 4, offset: 4 }} id="download">
-                        <p><b>Pobierz aplikację mobilną Motopres</b></p>
+                        <p><b>Pobierz aplikację Motopres</b></p>
                         <Button
                             variant="primary"
                             type="button"
                             className="button_download"
-                            onClick={() => download()}>
+                            onClick={() => downloadAndroid()}>
+                            Pobierz 
+                            <Android id="android"/>
+                        </Button>
+                        <br/>
+                        <Button
+                            variant="primary"
+                            type="button"
+                            className="button_download"
+                            onClick={() => downloadApple()}>
                             Pobierz
+                            <Apple id="apple"/>
                         </Button>
                         {/* <p>
                             Api: {Url.api}

@@ -16,16 +16,16 @@ const Onelog = (props) => {
             <Table striped bordered hover>
                 <tr>
                     <td>
-                        Informacja
+                        <b>Informacja</b>
                     </td>
                     <td>
-                        Link
+                        <b>Link</b>
                     </td>
                     <td>
-                        Godzina
+                        <b>Godzina</b>
                     </td>
                     <td>
-                        Data
+                        <b>Data</b>
                     </td>
                 </tr>
                 {/* {console.log("Search: " + props.search)} */}

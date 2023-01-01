@@ -91,7 +91,7 @@ const AddTodo = (props) => {
                                 >
                                     <option disabled value="">Wybierz...</option>
                                     <option selected="selected" value="Regenerowane">Regenerowane</option>
-                                    <option value="Nowe/używane">Nowe / używane</option>
+                                    <option value="Nowe / używane">Nowe / używane</option>
                                 </Form.Select>
                             </label>
                         </Col>

@@ -12,3 +12,18 @@
     height: 1.5rem;
     width: 1.5rem;
 }
+#apple{
+  max-width: 30px;
+  max-height: 30px;
+}
+#android{
+  max-width: 30px;
+  max-height: 30px;
+}
+#hr {
+  height: 1px;
+  width: 100%;
+  /* max-height: ; */
+  background-color: darkgray;
+  margin-bottom: 30px;
+}

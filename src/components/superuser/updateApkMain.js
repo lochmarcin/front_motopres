@@ -6,6 +6,8 @@ import OneFile from "./oneFile";
 import "./file.css"
 import Footer from "../todo/footer";
 import { saveAs } from "file-saver";
+import { ReactComponent as Android } from './../../svg/android.svg';
+import { ReactComponent as Apple } from './../../svg/apple.svg';
 
 
 
@@ -15,11 +17,29 @@ const Apk = () => {
     const [files, setFiles] = React.useState([])
     const [progress, setProgress] = React.useState(0);
     const [send, setSend] = React.useState(false);
+    const [os, setOs] = React.useState("Android")
 
     const [actualFile, setActualFile] = React.useState(false)
 
+
     const sendFile = (e) => {
         e.preventDefault()
+
+        if (os == "Android") {
+            console.log("Android")
+            AndroidsendFile()
+
+        }
+        if (os == "IOS") {
+            console.log("IOS")
+            IOSsendFile()
+        }
+    }
+
+
+    // IOS SEND FILE 
+    const IOSsendFile = () => {
+
 
         const formData = new FormData();
 
@@ -48,7 +68,7 @@ const Apk = () => {
             .then(function (response) {
                 console.log(response.data.sendStatus)
                 setProgress(response.data.sendStatus)
-                if(response.data.sendStatus)
+                if (response.data.sendStatus)
                     setTimeout(reloadPage, 3000)
             })
             .catch(function (error) {
@@ -63,7 +83,54 @@ const Apk = () => {
         console.log("WYŚLIJ BUTTON")
     }
 
-    const reloadPage = () =>{
+
+    // ANDROID SEND FILE
+    const AndroidsendFile = () => {
+
+
+        const formData = new FormData();
+
+        // Update the formData object
+        formData.append(
+            "apk",
+            selectedFile,
+            selectedFile.name
+        );
+        setSend(true)
+        // const config = {
+        //     onUploadProgress: progressEvent => console.log(progressEvent.loaded)
+        // }
+
+
+        axios.post(Url.api + '/upload/addApk', formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+            onUploadProgress: (data) => {
+
+                //Set the progress value to show the progress bar
+                setProgress(Math.round((100 * data.loaded) / data.total));
+            },
+        })
+            .then(function (response) {
+                console.log(response.data.sendStatus)
+                setProgress(response.data.sendStatus)
+                if (response.data.sendStatus)
+                    setTimeout(reloadPage, 3000)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+
+        //         axios.post(Url.api + '/upload/addApk', formData,
+        //             onUploadProgress(data) => {
+        //     setProgress(Math.round((100 * data.loaded) / data.total));
+        // })
+        console.log("WYŚLIJ BUTTON")
+    }
+
+    const reloadPage = () => {
         window.location.reload(false)
     }
 
@@ -73,14 +140,14 @@ const Apk = () => {
         saveAs(
             `${Url.api}/upload/download/${id}`
         );
-        
+
     }
 
-    const deleteFile = async (id) =>{
+    const deleteFile = async (id) => {
         console.log("FRONT DELETE FILE")
         await axios.delete(Url.api + '/upload/deleteFile/' + id).then((response) => {
             console.log(response.data);
-            if(response.data){
+            if (response.data) {
                 axios.get(Url.api + '/upload/getFiles').then((response) => {
                     console.log(response.data);
                     setFiles(response.data)
@@ -90,11 +157,11 @@ const Apk = () => {
         });
     }
 
-    const onSiteChanged = async (id) =>{
+    const onSiteChanged = async (id) => {
         console.log("onSiteChanged: " + id)
         await axios.put(Url.api + '/upload/updateActualFile/' + id).then((response) => {
             console.log(response.data);
-            if(response.data){
+            if (response.data) {
                 axios.get(Url.api + '/upload/getFiles').then((response) => {
                     console.log(response.data);
                     setFiles(response.data)
@@ -134,14 +201,15 @@ const Apk = () => {
 
                 </div>
             );
-        } else {
-            return (
-                <div>
-                    <br />
-                    <h4>Wybierz plik a następnie kliknij Wyślij</h4>
-                </div>
-            );
         }
+        // else {
+        //     return (
+        //         <div>
+        //             <br />
+        //             <h4>Wybierz plik a następnie kliknij Wyślij</h4>
+        //         </div>
+        //     );
+        // }
     };
 
 
@@ -160,6 +228,27 @@ const Apk = () => {
     return (
         <>
             <div id="container">
+                <h4>Wybierz plik a następnie kliknij Wyślij</h4>
+                <Form.Group controlId="check">
+                    <Form.Check
+                        defaultChecked
+                        inline
+                        label="Android"
+                        name="os"
+                        type="Radio"
+                        onChange={() => setOs("Android")}
+
+                    />
+                    <Form.Check
+                        inline
+                        label="IOS"
+                        name="os"
+                        type="Radio"
+                        onChange={() => setOs("Ios")}
+
+                    />
+                </Form.Group>
+
                 <Form onSubmit={sendFile}>
                     <Form.Group controlId="formFile"
                         className="mb-3"
@@ -171,6 +260,7 @@ const Apk = () => {
                             name="apk"
                             onChange={(e) => changeFile(e)} />
                         <br />
+
                         {fileData()}
                         <Button variant="primary" type="submit">
                             Wyślij
@@ -185,7 +275,31 @@ const Apk = () => {
 
                 <div id="container">
                     <br />
-                    <h5>Przesłane pliki: </h5>
+                    <h5><Android id="android" /> Przesłane pliki Android: </h5>
+                    <Table>
+                        <thead>
+                            <tr>
+                                <th>Aktualne</th>
+                                <th>Wersja</th>
+                                <th>Link</th>
+                                <th>Data przesłania</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <OneFile downloadFile={downloadFile} files={files} onSiteChanged={onSiteChanged} actualFile={actualFile} setActualFile={setActualFile} deleteFile={deleteFile}></OneFile>
+                        </tbody>
+                    </Table>
+
+                    <Button variant="primary" onClick={() => updateActualFile(selectedFile)}>
+                        Aktualizuj
+                    </Button>
+                </div>
+                <br />
+                <div id="hr"></div>
+
+                <div id="container">
+                    <br />
+                    <h5><Apple id="apple" /> Przesłane pliki IOS: </h5>
                     <Table>
                         <thead>
                             <tr>

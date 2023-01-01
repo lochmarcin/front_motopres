@@ -3,7 +3,6 @@
     max-width: 1000px;
     display: flex;
 }
-
 #mainInfoUserTable{
     margin-bottom: 0;
 }
@@ -34,4 +33,7 @@ td{
 }
 .logsSearch{
     margin: 5px 20px 5px 20px
+}
+.table b{
+    padding: 0;
 }
