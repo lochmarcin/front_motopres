@@ -94,3 +94,6 @@
 #search_control{
   max-height: 40px;
 }
+#AddCompanyInput{
+  cursor: pointer;
+}

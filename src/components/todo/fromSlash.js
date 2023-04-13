@@ -11,7 +11,7 @@ const Logged = (props) => {
     React.useEffect(() => {
         axios.get(Url.api + '/auth/me').then((response) => {
             // setTodos(response.data);
-            console.log(response.data)
+            console.log(response)
             if (response.data.logged === true) {
                 console.log("(:From slash logged==" + response.data.logged)
                 if(props.from == undefined)

@@ -83,16 +83,6 @@ const Login = (props) => {
         }
     }
 
-    const downloadApple = async () => {
-        // e.preventDefault()
-        try {
-            console.log("Pobierz Apple")
-            FileSaver.saveAs(`${Url.api}/upload/downloadApple`, "Motopres");
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
 
     return <div>
         <div id="container">
@@ -145,7 +135,7 @@ const Login = (props) => {
                 {/* {mobile && alert("Aby móc korzystac na telefonie pobierz aplikację mobilną")} */}
                 <Row>
                     <Col md={{ span: 4, offset: 4 }} id="download">
-                        <p><b>Pobierz aplikację Motopres</b></p>
+                        <p><b>Pobierz aplikację na telefon</b></p>
                         <Button
                             variant="primary"
                             type="button"
@@ -154,20 +144,7 @@ const Login = (props) => {
                             Pobierz 
                             <Android id="android"/>
                         </Button>
-                        <br/>
-                        <Button
-                            variant="primary"
-                            type="button"
-                            className="button_download"
-                            onClick={() => downloadApple()}>
-                            Pobierz
-                            <Apple id="apple"/>
-                        </Button>
-                        {/* <p>
-                            Api: {Url.api}
-                            Front: {Url.front}
-                            local: {Url.local}
-                        </p> */}
+                        
                     </Col>
                 </Row>
             </Container>

@@ -1,0 +1,17 @@
+#addCompany{
+    display: flex;
+    flex-direction:row ;
+}
+#addCompanyButton{
+    margin-left: 20px;
+}
+#oneCompany{
+    margin-top: 50px;
+}
+#trashColumn{
+    text-align: right;
+}
+#trashSvg{
+    max-width: 30px;
+    max-height: 30px;
+}

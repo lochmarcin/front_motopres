@@ -1,10 +1,11 @@
 import React from "react";
-import { Col, Container, Form, Row, Button, Modal } from "react-bootstrap"
+import { Col, Container, Form, Row, Button, Modal, InputGroup } from "react-bootstrap"
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css'
 import moment from 'moment'
-import Url from "../config/url"
+import Url from "../../config/url"
+import Company from "./company/Company"
 import { fireEvent } from "@testing-library/react";
 
 
@@ -30,6 +31,27 @@ const AddTodo = (props) => {
     const [cookie, setCookie] = React.useState('')
     const [showModal, setShowModal] = React.useState(false)
 
+    //ADD COMPANY
+    const [showCompanyModal, setShowCompanyModal] = React.useState(false);
+
+    const [companyArray, setCompanyArray] = React.useState([])
+    // const addCompany = () => {
+    //     setShowCompanyModal(true)
+    //     console.log("POKAŻ MODALA!")
+    // }
+
+    const addCompanyToArray = (companyName) => {
+        let companyArr = companyArray
+        companyArr.push(companyName)
+        setCompanyArray(companyArr)
+    }
+    const removeCompanyfromArray = (companyName) => {
+        let companyArr = companyArray
+        const index = companyArr.indexOf(companyName)
+        if (index > -1) companyArr.splice(index, 1)
+        // companyArr.unshift(companyName)
+        setCompanyArray(companyArr)
+    }
 
     const updatedAlert = () => {
         setShowModal(true)
@@ -60,13 +82,24 @@ const AddTodo = (props) => {
         })
             .then(function (response) {
                 updatedAlert()
-                props.todoAdd(response.data)
+                // props.todoAdd(response.data)
+                props.todoAdd()
+
 
             })
             .catch(function (error) {
                 console.log(error);
             });
     }
+
+    React.useEffect(() => {
+        // companyArray = props.companyList.map(company => props.companyList.name_comp)
+
+        console.log("Add Todo useEfect:")
+        // console.log(props.companyArray)
+        console.log(props.companyArray)
+        setCompanyArray(props.companyArray)
+    }, []);
 
     return (
         <>
@@ -80,6 +113,7 @@ const AddTodo = (props) => {
                                     placeholder="Wpisz id"
                                     value={id}
                                     onChange={(e) => setId(e.target.value)}
+                                    autoFocus
                                 />
                             </label>
                         </Col>
@@ -89,7 +123,7 @@ const AddTodo = (props) => {
                                     // value={(e) => setStan(e.target.value)}
                                     onChange={(e) => setStan(e.target.value)}
                                 >
-                                    <option disabled value="">Wybierz...</option>
+                                    <option disabled>Wybierz...</option>
                                     <option selected="selected" value="Regenerowane">Regenerowane</option>
                                     <option value="Nowe / używane">Nowe / używane</option>
                                 </Form.Select>
@@ -161,13 +195,40 @@ const AddTodo = (props) => {
 
                         <Col xs="auto" sm="auto" md="auto" lg="auto">
                             <label>Firma:
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Wpisz znawę firmy"
-                                    value={company}
-                                    onChange={(e) => setCompany(e.target.value)}
-                                />
+                                <InputGroup>
+                                    <Form.Select
+                                        // value={(e) => setStan(e.target.value)}
+                                        placeholder="Wpisz znawę firmy"
+                                        onChange={(e) => setCompany(e.target.value)}
+                                    >
+                                        <option selected="selected" value="" >Wpisz / Wybierz</option>
+                                        {companyArray && <>
+                                            {companyArray.map((company) => {
+                                                return (
+                                                    <option value={company}>{company}</option>
+                                                )
+                                            })}
+                                        </>}
+                                    </Form.Select>
+                                    <InputGroup.Text
+                                        id="AddCompanyInput"
+                                        onClick={() => setShowCompanyModal(true)}
+                                    >+</InputGroup.Text>
+
+                                </InputGroup>
                             </label>
+
+
+                            {/* <label>Stan części
+                                <Form.Select
+                                    // value={(e) => setStan(e.target.value)}
+                                    onChange={(e) => setStan(e.target.value)}
+                                >
+                                    <option disabled>Wybierz...</option>
+                                    <option selected="selected" value="Regenerowane">Regenerowane</option>
+                                    <option value="Nowe / używane">Nowe / używane</option>
+                                </Form.Select>
+                            </label> */}
                         </Col>
 
                         <Col xs="auto" sm="auto" md="2" lg="2">
@@ -245,6 +306,27 @@ const AddTodo = (props) => {
             <br />
             <br />
             <div id="hr"></div>
+
+            {showCompanyModal && <Company showCompanyModal={showCompanyModal} setShowCompanyModal={setShowCompanyModal} addCompanyToArray={addCompanyToArray} removeCompanyfromArray={removeCompanyfromArray} />}
+            {/* {showCompanyModal && <Modal
+                show={true}
+                // onHide={() => setShowCompanyModal(false)}
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowCompanyModal(false)}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={() => setShowCompanyModal(false)}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+            </Modal>} */}
+
 
             {showModal && <Modal.Dialog
                 id="alert_modal">

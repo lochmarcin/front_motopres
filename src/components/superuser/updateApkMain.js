@@ -22,70 +22,24 @@ const Apk = () => {
     const [actualFile, setActualFile] = React.useState(false)
 
 
-    const sendFile = (e) => {
-        e.preventDefault()
+    // const sendFile = (e) => {
+    //     e.preventDefault()
 
-        if (os == "Android") {
-            console.log("Android")
-            AndroidsendFile()
+    //     if (os == "Android") {
+    //         console.log("Android")
+    //         AndroidsendFile()
 
-        }
-        if (os == "IOS") {
-            console.log("IOS")
-            IOSsendFile()
-        }
-    }
-
-
-    // IOS SEND FILE 
-    const IOSsendFile = () => {
-
-
-        const formData = new FormData();
-
-        // Update the formData object
-        formData.append(
-            "apk",
-            selectedFile,
-            selectedFile.name
-        );
-        setSend(true)
-        // const config = {
-        //     onUploadProgress: progressEvent => console.log(progressEvent.loaded)
-        // }
-
-
-        axios.post(Url.api + '/upload/addApk', formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-            onUploadProgress: (data) => {
-
-                //Set the progress value to show the progress bar
-                setProgress(Math.round((100 * data.loaded) / data.total));
-            },
-        })
-            .then(function (response) {
-                console.log(response.data.sendStatus)
-                setProgress(response.data.sendStatus)
-                if (response.data.sendStatus)
-                    setTimeout(reloadPage, 3000)
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-
-
-        //         axios.post(Url.api + '/upload/addApk', formData,
-        //             onUploadProgress(data) => {
-        //     setProgress(Math.round((100 * data.loaded) / data.total));
-        // })
-        console.log("WYŚLIJ BUTTON")
-    }
+    //     }
+    //     if (os == "IOS") {
+    //         console.log("IOS")
+    //         IOSsendFile()
+    //     }
+    // }
 
 
     // ANDROID SEND FILE
-    const AndroidsendFile = () => {
+    const AndroidsendFile = (e) => {
+        e.preventDefault()
 
 
         const formData = new FormData();
@@ -229,27 +183,9 @@ const Apk = () => {
         <>
             <div id="container">
                 <h4>Wybierz plik a następnie kliknij Wyślij</h4>
-                <Form.Group controlId="check">
-                    <Form.Check
-                        defaultChecked
-                        inline
-                        label="Android"
-                        name="os"
-                        type="Radio"
-                        onChange={() => setOs("Android")}
+            
 
-                    />
-                    <Form.Check
-                        inline
-                        label="IOS"
-                        name="os"
-                        type="Radio"
-                        onChange={() => setOs("Ios")}
-
-                    />
-                </Form.Group>
-
-                <Form onSubmit={sendFile}>
+                <Form onSubmit={AndroidsendFile}>
                     <Form.Group controlId="formFile"
                         className="mb-3"
                     >
@@ -295,29 +231,7 @@ const Apk = () => {
                     </Button>
                 </div>
                 <br />
-                <div id="hr"></div>
-
-                <div id="container">
-                    <br />
-                    <h5><Apple id="apple" /> Przesłane pliki IOS: </h5>
-                    <Table>
-                        <thead>
-                            <tr>
-                                <th>Aktualne</th>
-                                <th>Wersja</th>
-                                <th>Link</th>
-                                <th>Data przesłania</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <OneFile downloadFile={downloadFile} files={files} onSiteChanged={onSiteChanged} actualFile={actualFile} setActualFile={setActualFile} deleteFile={deleteFile}></OneFile>
-                        </tbody>
-                    </Table>
-
-                    <Button variant="primary" onClick={() => updateActualFile(selectedFile)}>
-                        Aktualizuj
-                    </Button>
-                </div>
+               
             </div>
             <Footer />
         </>

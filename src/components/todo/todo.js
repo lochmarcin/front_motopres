@@ -1,5 +1,5 @@
 import React from "react";
-import AddTodo from "./addTodo";
+import MainAddTodo from "./addTodo/MainAddTodo";
 import Todos from "./oneTodo";
 import axios from "axios"
 import Logged from "./fromSlash"
@@ -27,6 +27,11 @@ const Todo = (props) => {
     const [todos, setTodos] = React.useState(null);
     const navigate = useNavigate()
 
+    
+
+
+    // const [companies, setCompanies] = React.useState(null)
+
 
 
     const todoDone = async (id, internal_id) => {
@@ -38,12 +43,14 @@ const Todo = (props) => {
         axios.put(Url.api + '/todo/updateDone/' + id, data)
 
     }
-    const todoAdd = async (data) => {
-        const newTodo = todos
-        newTodo.push(data)
-        setTodos(newTodo)
-        navigate('/todo')
-    };
+    // const todoAdd = async (data) => {
+    //     const newTodo = todos
+    //     newTodo.push(data)
+    //     setTodos(newTodo)
+    //     navigate('/todo')
+    // };
+
+    
 
     const editTodo = (id) => {
         console.log("Id " + id)
@@ -81,21 +88,13 @@ const Todo = (props) => {
         });
     }
 
-    let changes
+    
 
     React.useEffect(() => {
         getData()
         // // interval()
 
-
       
-       
-        // changes = setInterval(getData, 1000);
-
-        // axios.get(Url.api + '/todo/get').then((response) => {
-        //     setTodos(response.data);
-        // });
-
         // console.log(props.role)
         if (props.role == 'admin' || props.role == 'editor') {
             setIsEditor(true)
@@ -115,12 +114,10 @@ const Todo = (props) => {
         <>
             <div id="container">
                 <div id="AddTodo">
-                    {isEditor && <AddTodo todoAdd={todoAdd}></AddTodo>}
+                    {isEditor && <MainAddTodo getData={getData}/>}
+                    {/* {isEditor && <AddTodo todoAdd={todoAdd} companyArray={companyArray} companies={companies}></AddTodo>} */}
                 </div>
-                {/* <br />
-                <br />
-
-                <div id="hr"></div> */}
+                
                 <Filter setSearch={setSearch} radioValue={radioValue} setRadioValue={setRadioValue}></Filter>
                 {todos && <Todos search={search} radioValue={radioValue} todos={todos} todoDone={todoDone} editTodo={editTodo}></Todos>}
 
