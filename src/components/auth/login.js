@@ -5,10 +5,11 @@ import LoginError from "./alert";
 
 import axios from 'axios'
 import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom"
-import { Col, Container, Form, Row, Button, Alert } from "react-bootstrap"
+import { Col, Container, Form, Row, Button, Alert, ProgressBar } from "react-bootstrap"
 import Url from "../config/url"
 import { ReactComponent as Android } from './../../svg/android.svg';
 import { ReactComponent as Apple } from './../../svg/apple.svg';
+import FileDownload from 'js-file-download'
 
 import FileSaver from 'file-saver';
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
@@ -25,38 +26,39 @@ const Login = (props) => {
     const [password, setPassword] = React.useState('');
     const [loginError, setloginError] = React.useState(null);
     const [mobile, setMobile] = React.useState(false);
+    const [progress, setProgres] = React.useState(null)
 
     const navigate = useNavigate()
 
 
     const authorization = (e) => {
         e.preventDefault()
-    
-            axios.post(Url.api + '/auth/login', {
-                username: login,
-                password: password,
-            }, { withCredentials: true })
-                .then(function (response) {
-                    if (response.data.token === null) {
-                        setloginError(true)
-                        console.log(response.data);
-                    }
-                    else {
-                        // setloginError(false)
-                        // console.log(response.data.token);
-                        // console.log(response.data);
-                        props.userWho(response.data.firstname)
-                        props.userRole(response.data)
-                        // navigate('/todo')
-                        checkUser()
-                    }
-                    setAuth(response.data.token)
-                })
-                .catch(function (error) {
-                    console.log(error);
-                })
 
-        
+        axios.post(Url.api + '/auth/login', {
+            username: login,
+            password: password,
+        }, { withCredentials: true })
+            .then(function (response) {
+                if (response.data.token === null) {
+                    setloginError(true)
+                    console.log(response.data);
+                }
+                else {
+                    // setloginError(false)
+                    // console.log(response.data.token);
+                    // console.log(response.data);
+                    props.userWho(response.data.firstname)
+                    props.userRole(response.data)
+                    // navigate('/todo')
+                    checkUser()
+                }
+                setAuth(response.data.token)
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+
+
     }
 
     const checkUser = () => {
@@ -66,9 +68,9 @@ const Login = (props) => {
                     setloginError(true)
                     console.log(response.data.msg);
                 }
-                if(response.data.logged === true){
+                if (response.data.logged === true) {
                     navigate('/todo')
-                    setloginError(false)                    
+                    setloginError(false)
                 }
             })
     }
@@ -76,8 +78,23 @@ const Login = (props) => {
     const downloadAndroid = async () => {
         // e.preventDefault()
         try {
-            console.log("Pobierz Android")
-            FileSaver.saveAs(`${Url.api}/upload/downloadAndroid`, "Motopres");
+            // console.log("Pobierz Android")
+            // FileSaver.saveAs(`${Url.api}/upload/downloadAndroid`, "Motopres");
+            let percentCompleted
+            await axios({
+                url: `${Url.api}/upload/downloadAndroid`,
+                responseType: "blob", // important
+                method: "GET",
+                onDownloadProgress: (progressEvent) => {
+                    percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    console.log(percentCompleted) // you can use this to show user percentage of file downloaded
+                    setProgres(percentCompleted)
+                }
+            }).then(response => {
+                // console.log(response)
+                FileDownload(response.data, 'Motopres.apk');
+            });
+            // console.log(percentCompleted)
         } catch (err) {
             console.log(err)
         }
@@ -141,10 +158,11 @@ const Login = (props) => {
                             type="button"
                             className="button_download"
                             onClick={() => downloadAndroid()}>
-                            Pobierz 
-                            <Android id="android"/>
+                            {!progress && 'Pobierz'}
+                            {!progress && <Android id="android" />}
+                            {progress && <ProgressBar now={progress} label={`Pobrano ${progress}%`} />}
                         </Button>
-                        
+
                     </Col>
                 </Row>
             </Container>
