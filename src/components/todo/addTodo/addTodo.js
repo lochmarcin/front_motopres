@@ -1,13 +1,13 @@
 import React from "react";
-import { Col, Container, Form, Row, Button, Modal, InputGroup } from "react-bootstrap"
+import { Col, Container, Form, Row, Button, InputGroup } from "react-bootstrap"
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css'
 import moment from 'moment'
 import Url from "../../config/url"
 import Company from "./company/Company"
-import { fireEvent } from "@testing-library/react";
-
+// import { fireEvent } from "@testing-library/react";
+import ToastNotifi from "../toastNotifi";
 
 
 
@@ -18,7 +18,7 @@ const AddTodo = (props) => {
     const [stan, setStan] = React.useState('Regenerowane')
     const [towar, setTowar] = React.useState('')
     const [collectDate, setCollectDate] = React.useState(new Date())
-    const [time_morning, setTime_morning] = React.useState(false)
+    const [time_morning, setTime_morning] = React.useState(true)
 
     const [deposit, setDeposit] = React.useState(false)
     const [company, setCompany] = React.useState('')
@@ -29,7 +29,7 @@ const AddTodo = (props) => {
     const [fv, setFv] = React.useState(false)
 
     const [cookie, setCookie] = React.useState('')
-    const [showModal, setShowModal] = React.useState(false)
+    const [showInfoToast, setShowInfoToast] = React.useState(false)
 
     //ADD COMPANY
     const [showCompanyModal, setShowCompanyModal] = React.useState(false);
@@ -53,13 +53,13 @@ const AddTodo = (props) => {
         setCompanyArray(companyArr)
     }
 
-    const updatedAlert = () => {
-        setShowModal(true)
-        setTimeout(
-            () => setShowModal(false),
-            3000
-        );
-    }
+    // const updatedAlert = () => {
+    //     setShowModal(true)
+    //     setTimeout(
+    //         () => setShowModal(false),
+    //         3000
+    //     );
+    // }
 
     const addOneTodo = (e) => {
         e.preventDefault()
@@ -81,8 +81,9 @@ const AddTodo = (props) => {
             note: note
         })
             .then(function (response) {
-                updatedAlert()
+                // updatedAlert()
                 // props.todoAdd(response.data)
+                setShowInfoToast(true)
                 props.todoAdd()
 
 
@@ -280,12 +281,13 @@ const AddTodo = (props) => {
                         <Col xs="auto" sm="auto" md="auto" lg="8">
                             <label>Uwagi:</label>
                             <Form.Control
+                                as="textarea"
+                                rows={3}
                                 lg="6"
                                 type="text"
                                 placeholder="Uwagi"
                                 value={note}
                                 onChange={(e) => setNote(e.target.value)} />
-
                         </Col>
 
                         <Col xs="auto" sm="auto" md="auto" lg="auto" className="d-flex flex-row-reverse">
@@ -308,33 +310,9 @@ const AddTodo = (props) => {
             <div id="hr"></div>
 
             {showCompanyModal && <Company showCompanyModal={showCompanyModal} setShowCompanyModal={setShowCompanyModal} addCompanyToArray={addCompanyToArray} removeCompanyfromArray={removeCompanyfromArray} />}
-            {/* {showCompanyModal && <Modal
-                show={true}
-                // onHide={() => setShowCompanyModal(false)}
-                centered
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowCompanyModal(false)}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={() => setShowCompanyModal(false)}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
-            </Modal>} */}
 
 
-            {showModal && <Modal.Dialog
-                id="alert_modal">
-                <Modal.Header closeButton>
-                    <Modal.Title>Dodano zadanie </Modal.Title>
-                </Modal.Header>
-            </Modal.Dialog>
-            }
+            {showInfoToast && <ToastNotifi info={'Dodano zadanie'} showInfoToast={showInfoToast} setShowInfoToast={setShowInfoToast} />}
         </>
     )
 }

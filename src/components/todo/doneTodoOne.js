@@ -126,12 +126,14 @@ const DoneTodo = (props) => {
                                     <br />
                                     <Card.Text>
                                         <Row>
-                                            <Col>
-                                                <label>
-                                                    Uwagi:
-                                                    <br />
-                                                    {todo.note}
-                                                </label>
+                                            <Col id='lineHeight'>
+                                                {todo.note.split(/\r?\n/).map((textLine) => {
+                                                    return (
+                                                        <>
+                                                            {textLine} <br />
+                                                        </>
+                                                    )
+                                                })}
                                             </Col>
                                         </Row>
                                     </Card.Text>

@@ -4,6 +4,7 @@ import Todos from "./oneTodo";
 import axios from "axios"
 import Logged from "./fromSlash"
 import Filter from "./filter"
+import ToastNotifi from "./toastNotifi";
 
 import TodoEdit from "./editTodo";
 import Url from "../config/url"
@@ -17,11 +18,12 @@ import { useNavigate } from "react-router-dom"
 
 const Todo = (props) => {
     const [showEdit, setShowEdit] = React.useState(false)
-    const [isUptaded, setIsUptaded] = React.useState(false)
+    const [showInfoToast, setShowInfoToast] = React.useState(false)
     const [oneTodo, setOneTodo] = React.useState(null)
     const [radioValue, setRadioValue] = React.useState("Wszystko");
     const [search, setSearch] = React.useState("")
-
+    const [companyArray, setCompanyArray] = React.useState(null)
+    
 
     const [isEditor, setIsEditor] = React.useState(false)
     const [todos, setTodos] = React.useState(null);
@@ -50,13 +52,25 @@ const Todo = (props) => {
     //     navigate('/todo')
     // };
 
-    
+
+    const getCompanies = () => {
+
+        console.log("Get companies")
+        axios.get(Url.api + '/company/get/' + 'name_comp')
+            .then((response) => {
+                console.log(response.data)
+                // setCompanies(response.data)
+                const arr = response.data.map(object => object.name_comp)
+                setCompanyArray(arr)
+            });
+    }
 
     const editTodo = (id) => {
         console.log("Id " + id)
         let onetodo = todos.filter(x => x.id === id)
         console.log(onetodo[0])
         setOneTodo(onetodo[0])
+        getCompanies()
         // setIdEditTodo(id)
         setShowEdit(true)
     }
@@ -68,17 +82,18 @@ const Todo = (props) => {
         let newTodo = todos.filter(todos => todos.id !== data.id)
         newTodo.push(data)
         setTodos(newTodo)
-        updatedAlert()
+        // updatedAlert()
+        setShowInfoToast(true)
     }
 
-    const updatedAlert = () => {
-        setIsUptaded(true)
-        setTimeout(
-            () => setIsUptaded(false),
-            3000
-        );
-    }
-    const [news, setNews] = React.useState()
+    // // const updatedAlert = () => {
+    // //     setIsUptaded(true)
+    // //     setTimeout(
+    // //         () => setIsUptaded(false),
+    // //         3000
+    // //     );
+    // // }
+    // const [news, setNews] = React.useState()
 
 
 
@@ -121,15 +136,9 @@ const Todo = (props) => {
                 <Filter setSearch={setSearch} radioValue={radioValue} setRadioValue={setRadioValue}></Filter>
                 {todos && <Todos search={search} radioValue={radioValue} todos={todos} todoDone={todoDone} editTodo={editTodo}></Todos>}
 
-                {showEdit && <TodoEdit setShowEdit={setShowEdit} oneTodo={oneTodo} updatedTodo={updatedTodo} />}
+                {showEdit && <TodoEdit companyArray={companyArray} setShowEdit={setShowEdit} oneTodo={oneTodo} updatedTodo={updatedTodo} />}
 
-                {isUptaded && <Modal.Dialog
-                    id="alert_modal">
-                    <Modal.Header closeButton>
-                        <Modal.Title>Zaaktualizowano zadanie </Modal.Title>
-                    </Modal.Header>
-                </Modal.Dialog>
-                }
+                {showInfoToast && <ToastNotifi info={'Zaaktualizowano zadanie'} showInfoToast={showInfoToast} setShowInfoToast={setShowInfoToast}/>}
 
             </div>
         </>

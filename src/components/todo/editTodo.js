@@ -7,7 +7,7 @@ import moment from "moment";
 import Url from "../config/url"
 
 
-import { Button, Container, Col, Row, Modal, Form } from "react-bootstrap"
+import { Button, Container, Col, Row, Modal, Form, InputGroup } from "react-bootstrap"
 
 
 const TodoEdit = (props) => {
@@ -23,6 +23,8 @@ const TodoEdit = (props) => {
     const [price, setPrice] = React.useState('')
     const [note, setNote] = React.useState('')
     const [fv, setFv] = React.useState(false)
+
+    const [showCompanyModal, setShowCompanyModal] = React.useState(false);
 
 
 
@@ -58,9 +60,7 @@ const TodoEdit = (props) => {
                 }
                 if (response.data == false) {
                     console.log("Błąd!")
-                    // setAlert("Błąd...")
-                    // userAdd()
-                    // setModalShow(false)
+
                 }
             })
     }
@@ -82,7 +82,7 @@ const TodoEdit = (props) => {
         setFv(props.oneTodo.fv)
 
     }, []);
-    
+
     return (
         <>
             {/* Modal EDYCJA   -----   Modal EDYCJA   -----   Modal EDYCJA   -----   Modal EDYCJA   -----   Modal EDYCJA   */}
@@ -93,11 +93,11 @@ const TodoEdit = (props) => {
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
+                id='EditTodoModal'
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Edycja zadania -
-                        {props.oneTodo.id}
+                        Edycja zadania - {props.oneTodo.id}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -138,7 +138,7 @@ const TodoEdit = (props) => {
                                         />
                                     </label>
                                 </Col>
-                                <Col xs="auto" sm="auto" md="auto" lg="auto" >
+                                <Col xs="auto" sm="auto" md="2" lg="2" >
                                     {/* {()=>{console.log(collectDate)}} */}
 
                                     <label>Data odbioru:
@@ -188,17 +188,37 @@ const TodoEdit = (props) => {
                                     </label>
                                 </Col>
                                 <Col xs="auto" sm="auto" md="auto" lg="auto">
-                                    <label>Firma:
+                                    {/* <label>Firma:
                                         <Form.Control
                                             type="text"
                                             placeholder="Wpisz znawę firmy"
                                             value={company}
                                             onChange={(e) => setCompany(e.target.value)}
                                         />
+                                    </label> */}
+                                    <label>Firma:
+                                        <InputGroup>
+                                            <Form.Select
+                                                // value={(e) => setStan(e.target.value)}
+                                                placeholder="Wpisz znawę firmy"
+                                                onChange={(e) => setCompany(e.target.value)}
+                                            >
+                                                <option selected="selected" value="" >Wpisz / Wybierz</option>
+                                                {props.companyArray && <>
+                                                    {props.companyArray.map((company) => {
+                                                        return (
+                                                            <option value={company}>{company}</option>
+                                                        )
+                                                    })}
+                                                </>}
+                                            </Form.Select>
+                                            
+
+                                        </InputGroup>
                                     </label>
                                 </Col>
 
-                                <Col xs="auto" sm="auto" md="auto" lg="auto">
+                                <Col xs="auto" sm="auto" md="2" lg="2">
                                     <label>
                                         Indeks:
                                         <Form.Control
@@ -210,7 +230,7 @@ const TodoEdit = (props) => {
                                     </label>
                                 </Col>
 
-                                <Col xs="auto" sm="auto" md="auto" lg="auto">
+                                <Col xs="auto" sm="auto" md="2" lg="2">
                                     <label>
                                         Numer opaski:
                                         <Form.Control
@@ -233,7 +253,7 @@ const TodoEdit = (props) => {
                                     </label>
                                 </Col>
 
-                                <Col xs="auto" sm="auto" md="auto" lg="auto">
+                                <Col xs="auto" sm="auto" md="2" lg="2">
                                     <label>Cena:
                                         <Form.Control
                                             type="text"
@@ -246,14 +266,17 @@ const TodoEdit = (props) => {
                             </Row>
                             <br />
                             <Row className="justify-content-md-center">
-                                <Col xs="auto" sm="auto" md="auto" lg="auto">
+                                <Col xs="auto" sm="auto" md="auto" lg="8">
                                     <label>Uwagi:
                                         <Form.Control
+                                            id='textareaUwagi'
+                                            as="textarea"
+                                            rows={3}
+                                            lg="6"
                                             type="text"
                                             placeholder="Uwagi"
                                             value={note}
-                                            onChange={(e) => setNote(e.target.value)}
-                                        />
+                                            onChange={(e) => setNote(e.target.value)} />
                                     </label>
                                 </Col>
 

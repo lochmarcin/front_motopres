@@ -5,6 +5,8 @@
   align-items: center;
 }
 .addTodoSubmit {
+  margin:auto;
+  height: 60px;
   width: 150px;
 }
 .hr {
@@ -96,4 +98,23 @@
 }
 #AddCompanyInput{
   cursor: pointer;
+}
+#lineHeight{
+  line-height: normal;
+}
+#ToastContainer{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+#InfoNotifi{
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-right: 10px;
+}
+#EditTodoModal{
+  max-width: 1050px;
+}
+#textareaUwagi{
+  width: 600px;
 }

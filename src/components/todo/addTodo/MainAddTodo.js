@@ -8,7 +8,6 @@ import Url from "../../config/url"
 const MainAddTodo = (props) => {
 
     const [companyArray, setCompanyArray] = React.useState(null)
-    // const [companies, setCompanies] = React.useState(null)
 
     const getCompanies = () => {
 
